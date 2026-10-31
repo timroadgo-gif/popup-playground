@@ -1,8 +1,8 @@
 // Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=51a100bad073";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=51a100bad073";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=532ce09de06c";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=532ce09de06c";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -34,14 +34,18 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     panel.tabIndex = -1;
     scroll.append(variant.render(ctx));
     panel.append(scroll);
-    // The X sits top-trailing and stays put while content scrolls. Headers reserve its column with [data-close-slot];
-    // without an X that spacer is removed so the heading takes the full width.
-    if (dismiss.closeButton) {
-      const bar = el("popup__toolbar");
-      bar.append(glassCloseButton(ctx.close));
-      panel.append(bar);
+    // Close button: inside the header row when the sheet has one ([data-close-slot], Figma «Pop Up Текст»
+    // 503:4638 / 504:4645); otherwise it floats top-trailing (icon-led prompts). No X → the slot is removed.
+    const slot = scroll.querySelector("[data-close-slot]");
+    if (dismiss.closeButton && slot) {
+      slot.append(glassCloseButton(ctx.close));
     } else {
-      scroll.querySelectorAll("[data-close-slot]").forEach((n) => n.remove());
+      slot?.remove();
+      if (dismiss.closeButton) {
+        const bar = el("popup__toolbar");
+        bar.append(glassCloseButton(ctx.close));
+        panel.append(bar);
+      }
     }
     root.append(backdrop, panel);
     layer.append(root);

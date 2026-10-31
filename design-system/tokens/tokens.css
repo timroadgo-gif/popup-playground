@@ -110,8 +110,8 @@
   --text-popup-heading-line-height: 22px;
   --text-popup-heading-weight: var(--font-weight-regular);
   --text-popup-heading-letter-spacing: var(--font-tracking-snug);
-  --text-popup-body-size: 13px;
-  --text-popup-body-line-height: 20px;
+  --text-popup-body-size: 12px;
+  --text-popup-body-line-height: 17px;
   --text-popup-body-weight: var(--font-weight-regular);
   --text-popup-body-letter-spacing: var(--font-tracking-normal);
   --text-popup-meta-size: 12px;
