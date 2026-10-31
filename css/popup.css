@@ -31,7 +31,7 @@
 
 /* Close control: glass X (IconButton / Glass / Light / 44), close-inset from the top and trailing edges; fixed while
    content scrolls. The sheet header reserves its column (css/sheet.css). */
-.popup__toolbar { position: absolute; top: var(--popup-sheet-close-inset); right: var(--popup-sheet-close-inset); z-index: 2; }
+.popup__toolbar { position: absolute; top: var(--popup-sheet-close-inset); left: var(--popup-sheet-padding-inline); z-index: 2; } /* experiment: top-leading X */
 
 @media (prefers-reduced-motion: reduce) {
   .popup--sheet .popup__panel, .popup--sheet.is-closing .popup__panel { transform: none; opacity: 0; transition: opacity 0.2s; }
