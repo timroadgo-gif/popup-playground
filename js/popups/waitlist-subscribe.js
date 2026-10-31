@@ -1,16 +1,17 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=2cc564c7d558";
-import { createField } from "../../design-system/components/field/field.js?v=2cc564c7d558";
-import { createAccountNotice } from "../../design-system/components/account-notice/account-notice.js?v=2cc564c7d558";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=60a89303b059";
+import { createField } from "../../design-system/components/field/field.js?v=60a89303b059";
+import { createAccountNotice } from "../../design-system/components/account-notice/account-notice.js?v=60a89303b059";
 
 // Figma «Работа» 497:4011. Dropdown option lists are not defined in the source, so the selects open nothing.
 export default {
   id: "waitlist-subscribe",
   kind: "sheet",
   title: "Подписаться на модель",
+  contextTitle: "Лист ожидания",
   hint: "Figma 497:4011 · форма, 5 полей, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(
-    head({ layout: "nav", title: "Подписаться на модель", text: "Заполните заявку, чтобы узнать о появлении в наличии нужного вам аксессуара." }),
+    head({ heading: "Подписаться на модель", text: "Заполните заявку, чтобы узнать о появлении в наличии нужного вам аксессуара." }),
     body([
       createAccountNotice({ icon: "user", message: "Вам нужен аккаунт, чтобы создать заявку", parts: [{ link: "Войдите", onClick: close }, " или ", { link: "Зарегистрируйтесь", onClick: close }] }),
       createField({ label: "Почта", placeholder: "Ваша почта", type: "email", autocomplete: "email" }),

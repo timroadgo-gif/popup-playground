@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=2cc564c7d558";
-import { createIcon } from "../../design-system/icons/icon.js?v=2cc564c7d558";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=2cc564c7d558";
+import { createButton } from "../../design-system/components/button/button.js?v=60a89303b059";
+import { createIcon } from "../../design-system/icons/icon.js?v=60a89303b059";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=60a89303b059";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -34,51 +34,20 @@ export function sheet(...blocks) {
   return node("section", "ps", blocks);
 }
 
-const closeSpacer = () => {
-  const slot = node("div", "ps__close");
-  slot.dataset.closeSlot = "";
-  slot.setAttribute("aria-hidden", "true");
-  return slot;
-};
-
 // Popup headings never end with a period or comma (approved editorial rule, design-system/docs/typography.md).
-const heading = (t) => (t ? t.replace(/[.,]+$/u, "") : t);
+const clean = (t) => (t ? t.replace(/[.,]+$/u, "") : t);
 
-// Header patterns (experimental, see css/sheet.css). Typography roles: navigation title ≤14, content heading ≤16.
-//  layout "nav"     — Pattern A: compact navigation title centred on the whole panel in the close-button band,
-//                     optional content heading below it (`heading`), then content. Never invent wording to fill both.
-//                     Falls back to "content" when the navigation title needs more than two lines (adaptHeaders).
-//  layout "content" — Pattern B (default): `title` is the content heading, beside a reserved X footprint.
-//  align "center"   — icon-led sign-in gates: centred icon in the X band, content heading and text below it.
-export function head({ title, heading: contentHeading, text, extra, icon, badge, align = "start", layout = "content" }) {
-  title = heading(title);
-  contentHeading = heading(contentHeading);
+// Content header. `heading` is the contentHeading (informational, ≤16, multiline). The short contextTitle is variant
+// metadata rendered by the host in the navigation header — never pass it here, never derive one from the other.
+// align "center" is the icon-led variant for sign-in gates.
+export function head({ heading, text, extra, icon, badge, align = "start" }) {
   const centered = align === "center";
-  const nav = layout === "nav" && !centered && !icon && title;
-  const parts = [];
-  if (nav) {
-    parts.push(node("div", "ps__nav", [node("h2", "ps__nav-title ds-text-popup-nav-title", [title])]));
-    if (contentHeading) parts.push(node("h3", "ps__title ds-text-popup-heading", [contentHeading]));
-  } else {
-    parts.push(icon ? contextIcon(icon, badge) : null);
-    parts.push(title ? node("h2", "ps__title ds-text-popup-heading", [title]) : null);
-    parts.push(centered ? null : closeSpacer());
-  }
-  parts.push(text ? textBlock(text) : null, extra);
-  return node("div", `ps__head${centered ? " ps__head--centered" : ""}${nav ? " ps__head--nav" : ""}`, parts);
-}
-
-// Called by the host once the sheet is in the DOM: a navigation title longer than two lines becomes a content heading
-// (only when there is no separate content heading already).
-export function adaptHeaders(root) {
-  for (const t of root.querySelectorAll(".ps__nav-title")) {
-    const lh = parseFloat(getComputedStyle(t).lineHeight);
-    if (t.getBoundingClientRect().height <= lh * 2 + 1) continue;
-    const head = t.closest(".ps__head");
-    if (head.querySelector(".ps__title")) continue;
-    head.classList.remove("ps__head--nav");
-    t.parentElement.replaceWith(node("h2", "ps__title ds-text-popup-heading", [t.textContent]), closeSpacer());
-  }
+  return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
+    icon ? contextIcon(icon, badge) : null,
+    heading ? node("h2", "ps__title ds-text-popup-heading", [clean(heading)]) : null,
+    text ? textBlock(text) : null,
+    extra,
+  ]);
 }
 
 export function body(children, { compact = false } = {}) {

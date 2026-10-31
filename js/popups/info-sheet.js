@@ -1,4 +1,4 @@
-import { sheet, head, body, node } from "../ui/sheet.js?v=2cc564c7d558";
+import { sheet, head, body, node } from "../ui/sheet.js?v=60a89303b059";
 
 // Content-heavy informational sheet (template). Read-only, closing loses nothing → Close + swipe, single detent,
 // dismissible via backdrop. Copy is placeholder.
@@ -8,10 +8,11 @@ export default {
   id: "info-sheet",
   kind: "sheet",
   title: "Информационная шторка",
+  contextTitle: "Экспертиза",
   hint: "Только чтение · Close + свайп вниз",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: () => sheet(
-    head({ layout: "nav", title: "Экспертиза", heading: "Как мы проверяем каждую сумку", text: "Перед публикацией модель проходит несколько этапов проверки. Подлинность подтверждает только независимая экспертиза." }),
+    head({ heading: "Как мы проверяем каждую сумку", text: "Перед публикацией модель проходит несколько этапов проверки. Подлинность подтверждает только независимая экспертиза." }),
     body([node("ol", "ps__list ds-text-popup-body", steps.map((t, i) => node("li", null, [Object.assign(node("span", "ds-text-popup-meta"), { textContent: String(i + 1).padStart(2, "0") }), t])))]),
   ),
 };

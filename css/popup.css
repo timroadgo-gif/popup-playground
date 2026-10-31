@@ -28,9 +28,22 @@
 .popup__scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; scrollbar-width: none; }
 .popup__scroll::-webkit-scrollbar { display: none; }
 
-.popup__toolbar { position: absolute; top: var(--popup-sheet-close-inset); right: var(--popup-sheet-close-inset); z-index: 2; }
 
-/* Close control: design-system IconButton / Glass / Light / 44 (css/glass.css + components/icon-button). */
+/* Navigation header: context title centred on the panel + glass X (IconButton / Glass / Light / 44) on the right.
+   Symmetric side padding (X + gap) keeps the title optically centred on the whole panel and clear of the X.
+   Single line by rule: context titles are 1–3 words (contextTitle metadata). */
+.popup__nav {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--popup-sheet-close-size);
+  margin: var(--popup-sheet-close-inset) var(--popup-sheet-close-inset) 0;
+  padding: 0 calc(var(--popup-sheet-close-size) + var(--spacing-compact-inline));
+}
+.popup__context-title { margin: 0; color: var(--color-black-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.popup__close { position: absolute; top: 0; right: 0; display: flex; }
 
 @media (prefers-reduced-motion: reduce) {
   .popup--sheet .popup__panel, .popup--sheet.is-closing .popup__panel { transform: none; opacity: 0; transition: opacity 0.2s; }
