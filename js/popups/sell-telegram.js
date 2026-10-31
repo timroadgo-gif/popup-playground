@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=c2abed233231";
+import { sheet, head, actions } from "../ui/sheet.js?v=e353b1c2a59d";
 
 // Figma «Работа» 497:3982. The bot link is not in the source, so both actions only close the sheet.
 export default {
@@ -8,7 +8,7 @@ export default {
   hint: "Figma 497:3982 · две кнопки, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(
-    head({ title: "Будем на связи", text: "Важно! Чтобы мы могли связаться с вами и согласовать стоимость лота, начните чат в Telegram с нашим ботом поддержки. Для этого откройте бот и нажмите кнопку «Старт»." }),
+    head({ layout: "nav", title: "Будем на связи", text: "Важно! Чтобы мы могли связаться с вами и согласовать стоимость лота, начните чат в Telegram с нашим ботом поддержки. Для этого откройте бот и нажмите кнопку «Старт»." }),
     actions({ primary: { label: "Перейти в Telegram и начать чат", onClick: close }, secondary: { label: "Я не пользуюсь телеграм", onClick: close } }),
   ),
 };

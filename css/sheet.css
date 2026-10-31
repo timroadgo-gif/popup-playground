@@ -1,5 +1,5 @@
 /* Popup sheet skeleton (js/ui/sheet.js), shared by every popup:
-   header (title rectangle + reserved X column; optional icon variant) → description (full width) → optional content → actions.
+   header (Pattern A: centred navigation title in the X band · Pattern B: title rectangle + reserved X column · icon variant) → description (full width) → optional content → actions.
    Two densities, one skeleton: message sheets (header + actions) and form sheets (header + fields/consents + actions).
    Rhythm: header row→description 12 · icon→title 12 · description→content 24 · fields 16 · consents 12 ·
    message → actions 24 · form → actions 32 · primary→text action 8 · top, sides and bottom 24. Values from spacing.* / popup.sheet.* tokens only. */
@@ -47,9 +47,28 @@
 .ps__text { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); color: var(--ink-2); }
 .ps__head > .ds-callout { margin-top: var(--spacing-compact-stack); } /* note box reads as part of the description */
 
+/* Pattern A — navigation header (experimental): the title sits in the close-button band (inset 16 → 60), centred on
+   the whole panel. Symmetric side padding equal to the X footprint + gap keeps it optically centred and clear of the
+   X; up to two lines, the band grows downward. Compact type: heading-s (16/24 Regular). Content starts 24 below. */
+.ps__head--nav { display: flex; flex-direction: column; align-items: stretch; gap: var(--popup-sheet-heading-description); }
+.ps__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--popup-sheet-close-size);
+  margin: calc(var(--popup-sheet-close-inset) - var(--ps-pad-top)) calc(-1 * var(--popup-sheet-padding-inline)) calc(var(--spacing-standard-block) - var(--popup-sheet-heading-description));
+  padding: 0 calc(var(--popup-sheet-close-inset) + var(--popup-sheet-close-size) + var(--spacing-compact-inline));
+  text-align: center;
+}
+.ps__nav-title { margin: 0; color: var(--color-black-3); text-wrap: balance; }
+
 /* Icon-led variant (sign-in gates): centred column with no reserved X column. The 36pt icon sits in the X's band
    (top 24–60, centred, clear of the X); the title starts below the X, so no text shares a row with it. */
 .ps__head--centered { display: flex; flex-direction: column; align-items: center; gap: var(--popup-sheet-heading-description); text-align: center; }
+.ps__head--centered > .ps__title { /* prompts read as messages: same compact heading as Pattern A */
+  font: var(--text-heading-s-weight) var(--text-heading-s-size) / var(--text-heading-s-line-height) var(--font-family-sans);
+  letter-spacing: var(--text-heading-s-letter-spacing);
+}
 .ps__icon { position: relative; display: flex; margin-bottom: calc(var(--popup-sheet-icon-heading) - var(--popup-sheet-heading-description)); color: var(--color-black-3); }
 .ps__badge { position: absolute; top: -3.38px; left: 23.63px; width: 18px; height: 18px; display: grid; place-items: center; --corner-radius: 50%; background: rgba(255, 255, 255, 0.8); }
 

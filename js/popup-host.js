@@ -1,8 +1,9 @@
 // Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=c2abed233231";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=c2abed233231";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=e353b1c2a59d";
+import { adaptHeaders } from "./ui/sheet.js?v=e353b1c2a59d";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=e353b1c2a59d";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -34,6 +35,9 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     panel.tabIndex = -1;
     scroll.append(variant.render(ctx));
     panel.append(scroll);
+    root.append(backdrop, panel);
+    layer.append(root);
+    adaptHeaders(panel); // needs layout: long navigation titles fall back to content headings
     // The X floats top-trailing and stays put while content scrolls. Headers reserve its footprint with
     // [data-close-slot]; without an X that spacer is removed so no empty column remains.
     if (!dismiss.closeButton) scroll.querySelectorAll("[data-close-slot]").forEach((n) => n.remove());
@@ -42,8 +46,6 @@ export function createHost({ layer, background, getScale = () => 1 }) {
       bar.append(glassCloseButton(ctx.close));
       panel.append(bar);
     }
-    root.append(backdrop, panel);
-    layer.append(root);
     background.forEach((n) => (n.inert = true));
 
     cur = { root, backdrop, panel, scroll, variant, trigger, closing: false };

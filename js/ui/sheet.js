@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=c2abed233231";
-import { createIcon } from "../../design-system/icons/icon.js?v=c2abed233231";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=c2abed233231";
+import { createButton } from "../../design-system/components/button/button.js?v=e353b1c2a59d";
+import { createIcon } from "../../design-system/icons/icon.js?v=e353b1c2a59d";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=e353b1c2a59d";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -34,26 +34,43 @@ export function sheet(...blocks) {
   return node("section", "ps", blocks);
 }
 
-// Header: optional contextual icon (+ badge), optional kicker, title, supporting text, optional extra (e.g. a callout).
-// Leading headers reserve the X's footprint ([data-close-slot]); the host removes it when there is no X.
-// align "center" (icon-led sign-in gates) reserves nothing: the icon shares the X's band, text starts below it.
-export function head({ title, kicker, text, extra, icon, badge, align = "start" }) {
+const closeSpacer = () => {
+  const slot = node("div", "ps__close");
+  slot.dataset.closeSlot = "";
+  slot.setAttribute("aria-hidden", "true");
+  return slot;
+};
+
+// Header patterns (experimental, see css/sheet.css):
+//  layout "nav"     — Pattern A: compact title centred on the whole panel in the close-button band; content below.
+//                     Falls back to "content" automatically when the title needs more than two lines (adaptHeaders).
+//  layout "content" — Pattern B (default): title is the first content heading, beside a reserved X footprint.
+//  align "center"   — icon-led sign-in gates: centred icon in the X band, title and text below it.
+export function head({ title, kicker, text, extra, icon, badge, align = "start", layout = "content" }) {
   const centered = align === "center";
-  let slot = null;
-  if (!centered) {
-    slot = node("div", "ps__close");
-    slot.dataset.closeSlot = "";
-    slot.setAttribute("aria-hidden", "true");
+  const nav = layout === "nav" && !centered && !icon && title;
+  const parts = [];
+  if (nav) {
+    parts.push(node("div", "ps__nav", [node("h2", "ps__nav-title ds-text-heading-s", [title])]));
+  } else {
+    const h = title ? node("h2", "ps__title", [title]) : null;
+    parts.push(icon ? contextIcon(icon, badge) : null);
+    parts.push(kicker && h ? node("div", "ps__titles", [Object.assign(node("p", "ps__kicker ds-text-caption"), { textContent: kicker }), h]) : h);
+    parts.push(centered ? null : closeSpacer());
   }
-  const h = title ? node("h2", "ps__title", [title]) : null;
-  const titleBlock = kicker && h ? node("div", "ps__titles", [Object.assign(node("p", "ps__kicker ds-text-overline"), { textContent: kicker }), h]) : h;
-  return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
-    icon ? contextIcon(icon, badge) : null,
-    titleBlock,
-    slot,
-    text ? textBlock(text) : null,
-    extra,
-  ]);
+  parts.push(text ? textBlock(text) : null, extra);
+  return node("div", `ps__head${centered ? " ps__head--centered" : ""}${nav ? " ps__head--nav" : ""}`, parts);
+}
+
+// Called by the host once the sheet is in the DOM: a navigation title longer than two lines becomes a content heading.
+export function adaptHeaders(root) {
+  for (const t of root.querySelectorAll(".ps__nav-title")) {
+    const lh = parseFloat(getComputedStyle(t).lineHeight);
+    if (t.getBoundingClientRect().height <= lh * 2 + 1) continue;
+    const head = t.closest(".ps__head");
+    head.classList.remove("ps__head--nav");
+    t.parentElement.replaceWith(node("h2", "ps__title", [t.textContent]), closeSpacer());
+  }
 }
 
 export function body(children, { compact = false } = {}) {

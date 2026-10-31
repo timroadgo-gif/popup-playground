@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=c2abed233231";
+import { sheet, head, actions } from "../ui/sheet.js?v=e353b1c2a59d";
 
 // Figma «Работа» 497:3973
 export default {
@@ -8,7 +8,7 @@ export default {
   hint: "Figma 497:3973 · текст, кнопка, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(
-    head({ title: "Спасибо за информацию", text: "Мы свяжемся с вами по почте с адреса selling@thecultt.com. Если у вас есть вопросы по заявке, напишите нам на этот адрес — будем рады помочь." }),
+    head({ layout: "nav", title: "Спасибо за информацию", text: "Мы свяжемся с вами по почте с адреса selling@thecultt.com. Если у вас есть вопросы по заявке, напишите нам на этот адрес — будем рады помочь." }),
     actions({ primary: { label: "Завершить подачу", onClick: close } }),
   ),
 };

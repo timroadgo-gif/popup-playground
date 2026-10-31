@@ -1,4 +1,4 @@
-import { sheet, head } from "../ui/sheet.js?v=c2abed233231";
+import { sheet, head } from "../ui/sheet.js?v=e353b1c2a59d";
 
 // Figma «Работа» 497:4310. Text only; closes via Close, swipe, backdrop or Escape.
 export default {
@@ -8,6 +8,6 @@ export default {
   hint: "Figma 497:4310 · только текст, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: () => sheet(
-    head({ title: "Как мы рассчитываем стоимость?", text: "Это примерная цена на основании статистики по лотам, размещенным на THE CULTT за последний год. Точную итоговую сумму выплаты мы согласуем вместе с вами после подачи заявки." }),
+    head({ layout: "nav", title: "Как мы рассчитываем стоимость?", text: "Это примерная цена на основании статистики по лотам, размещенным на THE CULTT за последний год. Точную итоговую сумму выплаты мы согласуем вместе с вами после подачи заявки." }),
   ),
 };
