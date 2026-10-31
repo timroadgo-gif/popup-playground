@@ -11,7 +11,7 @@
   left: var(--sheet-inset);
   right: var(--sheet-inset);
   bottom: var(--sheet-inset);
-  max-height: calc(100% - var(--safe-top) - 12px);
+  max-height: calc(100% - var(--safe-top) - var(--spacing-spacious-group)); /* keep the presenting screen visible above the sheet */
   display: flex;
   flex-direction: column;
   --corner-radius: var(--sheet-r); /* concentric with the display; geometry from design-system ds-corner */

@@ -1,6 +1,6 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=db5962ca429c";
-import { createField } from "../../design-system/components/field/field.js?v=db5962ca429c";
-import { createCheckbox } from "../../design-system/components/checkbox/checkbox.js?v=db5962ca429c";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=3bc56573435e";
+import { createField } from "../../design-system/components/field/field.js?v=3bc56573435e";
+import { createCheckbox } from "../../design-system/components/checkbox/checkbox.js?v=3bc56573435e";
 
 // Figma «Работа» 497:4279. Close button added by the approved dismissal policy (not in the Figma node); checkbox defaults as in the source
 // (offer unchecked, newsletter checked). The source defines no validation, so none is added.

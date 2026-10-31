@@ -14,6 +14,7 @@ export const ICONS = {
   "home": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M9 20.9996V14.9996H15V20.9996M4 8.2942L12 2.9996L20 8.2942V20.9996H4V8.2942Z\"/></svg>",
   "info": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 15.6V12M12 8.4H12.009\"/></svg>",
   "map-pin": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12.0668 3C8.2404 3 5 6.1424 5 9.865C5 13.7632 8.7558 17.7496 11.2822 20.5514C11.2918 20.5627 11.7002 21 12.2033 21H12.2479C12.7511 21 13.1565 20.5627 13.1667 20.5514C15.5376 17.9231 19 13.5896 19 9.865C19 6.1424 16.4724 3 12.0668 3ZM12.3007 19.7968C12.2803 19.8165 12.2505 19.8385 12.2243 19.8567C12.1974 19.839 12.1683 19.8165 12.1467 19.7968L11.8416 19.4585C9.4465 16.8088 6.1667 13.1804 6.1667 9.865C6.1667 6.7536 8.8687 4.1247 12.0668 4.1247C16.0504 4.1247 17.8333 7.0075 17.8333 9.865C17.8333 12.3819 15.9716 15.7238 12.3007 19.7968ZM12.0204 6.4062C10.0875 6.4062 8.5204 7.9174 8.5204 9.7812C8.5204 11.6451 10.0875 13.1562 12.0204 13.1562C13.9533 13.1562 15.5204 11.6451 15.5204 9.7812C15.5204 7.9174 13.9533 6.4062 12.0204 6.4062ZM12.0204 12.0312C10.7339 12.0312 9.6602 10.9973 9.6602 9.7565C9.6602 8.5159 10.707 7.5065 11.9935 7.5065C13.281 7.5065 14.3269 8.5159 14.3269 9.7565C14.3275 10.9973 13.3078 12.0312 12.0204 12.0312Z\"/></svg>",
+  "message": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 5H17C18.6569 5 20 6.3431 20 8V14C20 15.6569 18.6569 17 17 17H10.5L7 19.5V17C5.3431 17 4 15.6569 4 14V8C4 6.3431 5.3431 5 7 5Z\"/></svg>",
   "minus": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\"/></svg>",
   "plus-circle": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"12\" cy=\"12\" r=\"9.5\"/><path d=\"M12 8V16M8 12H16\"/></svg>",
   "plus": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V12M12 12V19M12 12H5M12 12H19\"/></svg>",
@@ -363,7 +364,7 @@ export const META = {
     ]
   },
   "message": {
-    "status": "proposed",
+    "status": "approved",
     "type": "stroke",
     "optical": {
       "dx": 0,

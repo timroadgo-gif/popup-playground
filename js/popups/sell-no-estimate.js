@@ -1,5 +1,5 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=db5962ca429c";
-import { createCallout } from "../../design-system/components/callout/callout.js?v=db5962ca429c";
+import { sheet, head, actions } from "../ui/sheet.js?v=3bc56573435e";
+import { createCallout } from "../../design-system/components/callout/callout.js?v=3bc56573435e";
 
 // Figma «Работа» 497:4298
 export default {
