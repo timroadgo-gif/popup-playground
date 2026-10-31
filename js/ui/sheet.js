@@ -1,8 +1,8 @@
-// Shared sheet content blocks (css/sheet.css). Popups compose these instead of writing their own layout.
+// Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=950bf01060f3";
-import { createIcon } from "../../design-system/icons/icon.js?v=950bf01060f3";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=950bf01060f3";
+import { createButton } from "../../design-system/components/button/button.js?v=db5962ca429c";
+import { createIcon } from "../../design-system/icons/icon.js?v=db5962ca429c";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=db5962ca429c";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -10,8 +10,6 @@ export function node(tag, className, children = []) {
   for (const c of [].concat(children)) if (c != null) n.append(c);
   return n;
 }
-
-const para = (text, cls) => Object.assign(node("p", cls), { textContent: text });
 
 // Paragraphs of supporting text; a string may contain "\n" for a line break kept from the source.
 function textBlock(paragraphs) {
@@ -22,30 +20,29 @@ function textBlock(paragraphs) {
   }));
 }
 
-export function sheet(...blocks) {
-  return node("section", "ps", blocks);
-}
-
-// size: "l" → ds-text-heading-l (source titles 22px), "s" → ds-text-heading-s (source titles 16px)
-export function head({ title, size = "l", text, extra }) {
-  return node("div", "ps__head", [
-    node("h2", `ps__title ds-text-heading-${size}`, [title]),
-    text ? textBlock(text) : null,
-    extra,
-  ]);
-}
-
-// Centred header: icon with a "+1" badge, title, supporting line(s).
-export function hero({ icon, badge, title, text }) {
+function contextIcon(icon, badge) {
   const ic = node("div", "ps__icon", [createIcon(icon, { size: 36 })]);
   if (badge) {
     const b = node("span", "ps__badge ds-corner ds-text-label", [badge]);
     b.dataset.corner = "circular";
     ic.append(b);
   }
-  const t = textBlock(text);
-  t.classList.replace("ds-text-body", "ds-text-body-s");
-  return node("div", "ps__hero", [ic, node("div", "ps__pair", [para(title, "ps__title ds-text-heading-s"), t])]);
+  return ic;
+}
+
+export function sheet(...blocks) {
+  return node("section", "ps", blocks);
+}
+
+// Header: optional contextual icon (+ badge), title, supporting text, optional extra (e.g. a callout).
+// align "center" is reserved for sign-in gates; everything else is leading-aligned.
+export function head({ title, text, extra, icon, badge, align = "start" }) {
+  return node("div", `ps__head${align === "center" ? " ps__head--centered" : ""}`, [
+    icon ? contextIcon(icon, badge) : null,
+    node("h2", "ps__title", [title]),
+    text ? textBlock(text) : null,
+    extra,
+  ]);
 }
 
 export function body(children, { compact = false } = {}) {

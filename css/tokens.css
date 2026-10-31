@@ -8,14 +8,20 @@
   --surface: #ffffff;
   --hairline: rgba(17, 17, 17, 0.12);
 
-  /* Device 402x874 pt (iPhone 17 Pro). Radii per research: display 62, sheet = display - inset. */
+  /* Device 402x874 pt (iPhone 17 Pro). */
   --device-w: 402px;
   --device-h: 874px;
   --display-r: 62px;
   --safe-top: 59px;
   --safe-bottom: 34px;
   --sheet-inset: 8px;
-  --sheet-r: calc(var(--display-r) - var(--sheet-inset));
+  --sheet-r: 32px; /* approved 2026-10-31: restrained continuous radius instead of display-concentric 54 (not concentric with the display at the bottom) */
+
+  /* Popup-system title style, approved 2026-10-31. Local until the popup patterns are promoted to the UI Kit. */
+  --sheet-title-size: 20px;
+  --sheet-title-line-height: 26px;
+  --sheet-title-weight: var(--font-weight-regular);
+  --sheet-title-letter-spacing: var(--font-tracking-snug);
 
   /* Figma colours now live in the design system (color.black.3, color.grey.*, color.green.2) */
   --black-3: var(--color-black-3);

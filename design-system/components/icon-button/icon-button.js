@@ -1,7 +1,8 @@
-// IconButton factory. createIconButton({ icon, ariaLabel, onClick }) → <button> with the canonical glass surface.
-// Material comes from GlassSurface (../../glass/glass.js + css/glass.css); this file never styles glass itself.
-import { createIcon } from "../../icons/icon.js?v=950bf01060f3";
-import { applyGlass } from "../../glass/glass.js?v=950bf01060f3";
+// GlassIconButton factory. createIconButton({ icon, ariaLabel, onClick }) → 44 × 44 circular <button> with the shared
+// native-inspired glass (GlassSurface) and the icon in the compact presentation (~15 viewport, optically fitted path,
+// 0.9px stroke). This file never styles glass or resizes icon geometry itself.
+import { createIcon } from "../../icons/icon.js?v=db5962ca429c";
+import { applyGlass } from "../../glass/glass.js?v=db5962ca429c";
 
 const MATERIALS = ["glass-light"]; // IconButton / Glass / Light / 44 is the only approved variant
 
@@ -14,7 +15,7 @@ export function createIconButton({ icon, ariaLabel, material = "glass-light", ty
   el.className = "ds-icon-button";
   el.type = type;
   el.setAttribute("aria-label", ariaLabel);
-  el.append(createIcon(icon));
+  el.append(createIcon(icon, { presentation: "compact" }));
   applyGlass(el, { shape: "circle", material: "light" });
   if (onClick) el.addEventListener("click", onClick);
   return el;

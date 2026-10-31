@@ -1,11 +1,14 @@
-/* GlassSurface — the canonical Luxury Liquid Glass material. The ONLY place glass is rendered.
+/* GlassSurface — the shared native-inspired iOS 26 Liquid Glass material. The ONLY place glass is rendered.
+   Rule: follow Apple's system material (Glass.regular, light appearance) as closely as the web allows. No brand
+   textures, custom refraction, unusual blur or decorative highlights. Every glass component gets this one material.
    Components never write their own glass; they call applyGlass() / put .ds-glass on an element.
-   Material  : tokens glass.<material>.* (only "light" is approved).
+   Material  : tokens glass.<material>.* (only "light" exists).
    Shape     : data-shape = circle | pill | rounded. circle/pill are true circles/capsules (no superellipse);
                rounded uses the shared continuous geometry (.ds-corner + --corner-radius from the component).
    Dimensions, content and interaction belong to the component.
-   Layers (back → front): backdrop (frost + saturation, + edge refraction in Chromium via glass.js) → fill →
-   bevel (inset shade bottom; overlay-blended light top) → perimeter: 0.5px stroke with directional specular light → content. */
+   Layers (back → front), each an approximation of a native layer: backdrop (frost + saturation, + edge lensing in
+   Chromium via glass.js) → fill → inner light (shade bottom; overlay-blended light top) → hairline edge with
+   angle-dependent specular light → content. Limits: docs/glass.md. */
 
 .ds-glass {
   --_fill: var(--glass-light-fill);
@@ -22,9 +25,9 @@
 .ds-glass[data-shape="pill"] { border-radius: 9999px; }
 /* data-shape="rounded": radius and continuous shape come from .ds-corner (css/corners.css). */
 
-/* Perimeter: the approved luxury border. A uniform 0.5px #B7B7B7 stroke, overlaid with white specular light
-   whose strength depends on the angle: full at the top (light source), none on the flanks, strong again at the
-   bottom (light leaving through the far edge). The result reads as a lit glass edge, not a grey outline. */
+/* Edge: the native glass hairline. A 0.5px grey stroke overlaid with white specular light by angle: full at the
+   top (light source), none on the flanks, strong again at the bottom (light leaving through the far edge). Over light
+   content this gives the native look: a grey line on the flanks that dissolves at top and bottom. */
 .ds-glass::before {
   content: "";
   position: absolute;
@@ -51,9 +54,8 @@
   pointer-events: none;
 }
 
-/* Bevel light under the top edge. Overlay blending makes it luminance-adaptive: over light content it lifts the
-   glass to white (as in the reference), over dark content it adds almost nothing, so the control never turns into
-   a lit plastic dome on photos or dark screens. */
+/* Inner light under the top edge. Overlay blending makes it luminance-adaptive like the native material: over light
+   content it lifts the glass to white, over dark content it adds almost nothing (no lit plastic dome). */
 .ds-glass::after {
   content: "";
   position: absolute;

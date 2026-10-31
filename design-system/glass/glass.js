@@ -1,10 +1,10 @@
-// GlassSurface runtime. applyGlass(el, { shape }) puts the canonical material (css/glass.css) on an element and,
-// in Chromium only, adds edge refraction: an SVG displacement map used through backdrop-filter: url().
+// GlassSurface runtime. applyGlass(el, { shape }) puts the shared native-inspired material (css/glass.css) on an
+// element and, in Chromium only, approximates the native edge lensing: an SVG displacement map used through backdrop-filter: url().
 // Safari and Firefox do not render url() in backdrop-filter (and @supports reports it as supported), so the
 // browser is detected here and they keep the identical material without lensing.
 
 export const SHAPES = ["circle", "pill", "rounded"];
-export const MATERIALS = ["light"]; // other materials need design approval
+export const MATERIALS = ["light"]; // native light appearance; other materials need user approval
 
 const NS = "http://www.w3.org/2000/svg";
 const CHROMIUM = !!navigator.userAgentData?.brands?.some((b) => /Chromium/.test(b.brand));

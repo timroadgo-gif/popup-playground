@@ -26,154 +26,357 @@ export const ICONS = {
 export const META = {
   "heart-filled": {
     "status": "approved",
+    "type": "fill",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      4,
+      5,
+      20,
+      20
+    ]
   },
   "heart": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      3.5,
+      4.5,
+      20.5,
+      20.5
+    ]
   },
   "shopping-bag": {
     "status": "approved",
+    "type": "outline-fill",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      4.62,
+      2.29,
+      19.38,
+      21.21
+    ]
   },
   "share": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      4.5,
+      4.5,
+      19.5,
+      18.5
+    ]
   },
   "home": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      3.5,
+      2.5,
+      20.5,
+      21.5
+    ]
   },
   "user": {
     "status": "approved",
+    "type": "outline-fill",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      4,
+      4,
+      20,
+      20
+    ]
   },
   "chevron-left": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      8.5,
+      5.5,
+      15.5,
+      18.5
+    ]
   },
   "chevron-right": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      8.5,
+      5.5,
+      15.5,
+      18.5
+    ]
   },
   "chevron-down": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      5.5,
+      8.5,
+      18.5,
+      15.5
+    ]
   },
   "chevron-up": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      5.5,
+      8.5,
+      18.5,
+      15.5
+    ]
   },
   "arrow-left": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      3.5,
+      6.5,
+      21,
+      17.5
+    ],
+    "compact": {
+      "scale": 1.15,
       "dx": 0,
       "dy": 0
     }
   },
   "arrow-right": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      3.5,
+      6.5,
+      21,
+      17.5
+    ],
+    "compact": {
+      "scale": 1.15,
       "dx": 0,
       "dy": 0
     }
   },
   "credit-card": {
     "status": "approved",
+    "type": "outline-fill",
     "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      1.95,
+      5,
+      22,
+      19
+    ],
+    "compact": {
+      "scale": 1.15,
       "dx": 0,
       "dy": 0
     }
   },
   "map-pin": {
     "status": "approved",
+    "type": "outline-fill",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      5,
+      3,
+      19,
+      21
+    ]
   },
   "plus-circle": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      2,
+      2,
+      22,
+      22
+    ]
   },
   "check": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      3.5,
+      6.5,
+      20.5,
+      18.5
+    ],
+    "compact": {
+      "scale": 1.1,
       "dx": 0,
       "dy": 0
     }
   },
   "close": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      5.5,
+      5.5,
+      18.5,
+      18.5
+    ],
+    "compact": {
+      "scale": 0.92,
       "dx": 0,
       "dy": 0
     }
   },
   "search": {
     "status": "approved",
+    "type": "outline-fill",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      4,
+      4,
+      20,
+      20
+    ]
   },
   "info": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      3,
+      3,
+      21,
+      21
+    ]
   },
   "search-list": {
     "status": "approved",
+    "type": "outline-fill",
     "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      2,
+      5,
+      22.06,
+      19.06
+    ],
+    "compact": {
+      "scale": 1.15,
       "dx": 0,
       "dy": 0
     }
   },
   "minus": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
       "dx": 0,
       "dy": 0
-    }
+    },
+    "bounds": [
+      4.5,
+      11.5,
+      19.5,
+      12.5
+    ]
   },
   "plus": {
     "status": "approved",
+    "type": "stroke",
     "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      4.5,
+      4.5,
+      19.5,
+      19.5
+    ]
+  },
+  "message": {
+    "status": "proposed",
+    "type": "stroke",
+    "optical": {
+      "dx": 0,
+      "dy": 0
+    },
+    "bounds": [
+      3.5,
+      4.5,
+      20.5,
+      20
+    ],
+    "compact": {
+      "scale": 1.18,
       "dx": 0,
       "dy": 0
     }
