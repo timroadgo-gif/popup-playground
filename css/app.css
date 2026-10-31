@@ -1,0 +1,56 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: #e9e8e5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+/* Plain 402×874 artboard (no device chrome), scaled to fit on desktop, full-screen on a phone */
+.stage { min-height: 100%; display: grid; place-items: center; padding: var(--spacing-standard-block) 0; }
+.device {
+  width: var(--device-w);
+  height: var(--device-h);
+  transform: scale(var(--scale, 1));
+  transform-origin: center;
+  margin: calc((var(--device-h) * (var(--scale, 1) - 1)) / 2) 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 24px 60px rgba(0, 0, 0, 0.12);
+}
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  isolation: isolate;
+}
+@media (max-width: 440px) {
+  /* Real phone (Safari or Home Screen app): use the device's own safe areas instead of the iPhone 17 Pro mock values */
+  :root { --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); }
+  html, body { overflow: hidden; overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+  body { background: var(--paper); }
+  .stage { padding: 0; display: block; }
+  .device { width: 100vw; height: 100dvh; transform: none; margin: 0; box-shadow: none; }
+}
+
+/* Home: trigger list */
+.home { height: 100%; overflow-y: auto; padding: calc(var(--safe-top) + var(--spacing-standard-block)) var(--layout-page-margin) calc(var(--safe-bottom) + var(--spacing-standard-block)); scrollbar-width: none; }
+.home::-webkit-scrollbar { display: none; }
+.eyebrow { color: var(--ink-3); }
+.home__title { margin: var(--spacing-standard-control) 0 0; }
+.home__lead { margin: var(--spacing-standard-text-group) 0 0; max-width: 300px; color: var(--ink-2); }
+.cat { margin-top: var(--layout-section-gap); }
+.cat__head { display: flex; justify-content: space-between; padding-bottom: var(--spacing-standard-text-group); border-bottom: 1px solid var(--ink); }
+.list { list-style: none; margin: 0; padding: 0; }
+.row { display: flex; align-items: center; gap: var(--spacing-standard-control); width: 100%; padding: var(--spacing-standard-control) 0; text-align: left; border-bottom: 1px solid var(--hairline); transition: opacity 0.2s; }
+.row:active { opacity: 0.5; }
+.row:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+.row__n { width: 24px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.row__t { flex: 1; min-width: 0; }
+.row__title { display: block; }
+.row__hint { display: block; margin-top: var(--spacing-compact-stack); color: var(--ink-3); }
+.row svg { width: 8px; height: 14px; stroke: var(--ink); fill: none; stroke-width: 1.1; }

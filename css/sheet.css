@@ -1,0 +1,33 @@
+/* Shared sheet content layout for every popup (js/ui/sheet.js). Variants compose these blocks and never set
+   their own spacing: rhythm comes only from popup.sheet.* tokens.
+   head → body: description-form (32) · body items: field-gap (16) · last block → actions: form-action (24). */
+.ps {
+  display: flex;
+  flex-direction: column;
+  padding: var(--popup-sheet-padding-top) var(--popup-sheet-padding-inline) var(--popup-sheet-padding-bottom);
+  color: var(--color-black-3);
+  /* room the glass close button takes from the right edge of the header text */
+  --ps-close-clear: calc(var(--popup-sheet-close-size) + var(--popup-sheet-close-inset) - var(--popup-sheet-padding-inline) + var(--spacing-compact-inline));
+}
+.ps p { margin: 0; }
+.ps > * + .ps__body { margin-top: var(--popup-sheet-description-form); }
+.ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }
+
+/* Header: title + supporting text (≥ 12 between them, spacing.text.heading-body-min) */
+.ps__head { display: flex; flex-direction: column; gap: var(--popup-sheet-heading-description); }
+.popup__panel:has(> .popup__toolbar) .ps__head > .ps__title { padding-inline-end: var(--ps-close-clear); } /* only the title shares a row with the X */
+.ps__title { color: var(--color-black-3); }
+.ps__text { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); color: var(--ink-2); }
+.ps__head > .ds-callout { margin-top: var(--spacing-compact-stack); } /* note box reads as part of the description */
+
+/* Centred header with a badged icon (sign-in prompts) */
+.ps__hero { display: flex; flex-direction: column; align-items: center; gap: var(--popup-sheet-icon-heading); text-align: center; }
+.ps__icon { position: relative; display: flex; color: var(--color-black-3); }
+.ps__badge { position: absolute; top: -3.38px; left: 23.63px; width: 18px; height: 18px; display: grid; place-items: center; --corner-radius: 50%; background: rgba(255, 255, 255, 0.8); }
+.ps__pair { display: flex; flex-direction: column; gap: var(--popup-sheet-heading-description); }
+.ps__pair .ps__text { align-items: center; }
+
+.ps__body { display: flex; flex-direction: column; gap: var(--popup-sheet-field-gap); }
+.ps__body--compact { gap: var(--spacing-standard-text-group); } /* consent rows */
+
+.ps__actions { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); }

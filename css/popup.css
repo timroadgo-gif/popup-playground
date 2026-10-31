@@ -1,0 +1,46 @@
+/* Popup primitives. Host owns backdrop, panel, motion and dismissal; variants own content only. */
+.popup-layer { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+.popup { position: absolute; inset: 0; pointer-events: auto; }
+
+/* Backdrop: design-system ModalBackdrop (css/backdrop.css), created by the host. */
+
+.popup__panel { position: absolute; outline: none; touch-action: none; background: var(--surface); }
+
+/* kind: sheet — floating, inset from display edges, concentric radius, opaque container */
+.popup--sheet .popup__panel {
+  left: var(--sheet-inset);
+  right: var(--sheet-inset);
+  bottom: var(--sheet-inset);
+  max-height: calc(100% - var(--safe-top) - 12px);
+  display: flex;
+  flex-direction: column;
+  --corner-radius: var(--sheet-r); /* concentric with the display; geometry from design-system ds-corner */
+  transform: translateY(calc(100% + var(--sheet-inset) + 24px));
+  transition: transform 0.55s var(--ease-sheet);
+}
+.popup--sheet.is-open .popup__panel { transform: translateY(0); }
+.popup--sheet.is-closing .popup__panel { transform: translateY(calc(100% + var(--sheet-inset) + 24px)); transition-duration: 0.38s; }
+.popup--sheet .popup__panel.is-dragging { transition: none; }
+@supports (corner-shape: superellipse(2)) { /* the shadow must follow the continuous shape */
+  .popup--sheet .popup__panel { box-shadow: 0 0 36px rgba(0, 0, 0, 0.1); }
+}
+
+.popup__scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; scrollbar-width: none; }
+.popup__scroll::-webkit-scrollbar { display: none; }
+
+.popup__toolbar { position: absolute; top: var(--popup-sheet-close-inset); right: var(--popup-sheet-close-inset); z-index: 2; }
+
+/* Close control: design-system IconButton / Glass / Light / 44 (css/glass.css + components/icon-button). */
+
+@media (prefers-reduced-motion: reduce) {
+  .popup--sheet .popup__panel, .popup--sheet.is-closing .popup__panel { transform: none; opacity: 0; transition: opacity 0.2s; }
+  .popup--sheet.is-open .popup__panel { opacity: 1; }
+}
+
+/* Variant: info sheet — editorial density: spacious group gap before the list, standard text-group between title and body */
+.info { padding: var(--popup-sheet-padding-top) var(--popup-sheet-padding-inline) calc(var(--safe-bottom) + var(--spacing-compact-inline)); }
+.info__title { margin: var(--spacing-standard-block) 0 0; }
+.info__body { margin: var(--spacing-standard-text-group) 0 0; color: var(--ink-2); }
+.info__steps { list-style: none; margin: var(--spacing-spacious-group) 0 0; padding: 0; border-top: 1px solid var(--hairline); }
+.info__steps li { display: flex; gap: var(--spacing-standard-control); align-items: baseline; padding: var(--spacing-standard-control) 0; border-bottom: 1px solid var(--hairline); }
+.info__steps span { width: 24px; color: var(--ink-3); font-variant-numeric: tabular-nums; }

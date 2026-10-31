@@ -1,0 +1,30 @@
+/* IconButton. Dimensions, icon and interaction only; the surface comes from GlassSurface (css/glass.css).
+   Variant in use: IconButton / Glass / Light / 44. */
+
+.ds-icon-button {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--icon-button-glass-size);
+  height: var(--icon-button-glass-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--icon-button-glass-foreground);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform var(--motion-duration-fast) var(--motion-easing-standard);
+}
+.ds-icon-button .ds-icon { width: var(--icon-button-glass-icon-size); height: var(--icon-button-glass-icon-size); }
+
+/* Interaction: iOS glass controls respond by compressing slightly and catching more light. */
+.ds-icon-button:active,
+.ds-icon-button[data-state="pressed"] {
+  --_fill: var(--glass-light-pressed-fill);
+  transform: scale(var(--glass-light-pressed-scale));
+}
+.ds-icon-button:focus-visible { outline: var(--button-focus-ring-width) solid var(--icon-button-glass-foreground); outline-offset: var(--button-focus-ring-offset); }
+
+@media (prefers-reduced-motion: reduce) { .ds-icon-button { transition: none; } }
