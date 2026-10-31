@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=3bc56573435e";
-import { createIcon } from "../../design-system/icons/icon.js?v=3bc56573435e";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=3bc56573435e";
+import { createButton } from "../../design-system/components/button/button.js?v=3f44dd6d4607";
+import { createIcon } from "../../design-system/icons/icon.js?v=3f44dd6d4607";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=3f44dd6d4607";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -35,11 +35,19 @@ export function sheet(...blocks) {
 }
 
 // Header: optional contextual icon (+ badge), title, supporting text, optional extra (e.g. a callout).
-// align "center" is reserved for sign-in gates; everything else is leading-aligned.
+// Leading headers put the title and the close button in one row ([data-close-slot], filled by the host).
+// align "center" (icon-led sign-in gates) leaves the X floating top-trailing, outside the flow.
 export function head({ title, text, extra, icon, badge, align = "start" }) {
-  return node("div", `ps__head${align === "center" ? " ps__head--centered" : ""}`, [
+  const centered = align === "center";
+  let slot = null;
+  if (!centered) {
+    slot = node("div", "ps__close");
+    slot.dataset.closeSlot = "";
+  }
+  return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
     icon ? contextIcon(icon, badge) : null,
-    node("h2", "ps__title", [title]),
+    title ? node("h2", "ps__title", [title]) : null,
+    slot,
     text ? textBlock(text) : null,
     extra,
   ]);

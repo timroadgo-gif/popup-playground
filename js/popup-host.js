@@ -1,8 +1,8 @@
 // Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=3bc56573435e";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=3bc56573435e";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=3f44dd6d4607";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=3f44dd6d4607";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -34,10 +34,17 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     panel.tabIndex = -1;
     scroll.append(variant.render(ctx));
     panel.append(scroll);
-    if (dismiss.closeButton) {
-      const bar = el("popup__toolbar");
-      bar.append(glassCloseButton(ctx.close));
-      panel.append(bar);
+    // A header that shares its row with the X exposes [data-close-slot]; otherwise the X floats top-trailing.
+    const slot = scroll.querySelector("[data-close-slot]");
+    if (dismiss.closeButton && slot) {
+      slot.append(glassCloseButton(ctx.close));
+    } else {
+      slot?.remove(); // no X → no reserved column
+      if (dismiss.closeButton) {
+        const bar = el("popup__toolbar");
+        bar.append(glassCloseButton(ctx.close));
+        panel.append(bar);
+      }
     }
     root.append(backdrop, panel);
     layer.append(root);
