@@ -1,6 +1,7 @@
 /* Popup sheet skeleton (js/ui/sheet.js), shared by every popup:
    header (Pattern A: centred navigation title in the X band · Pattern B: title rectangle + reserved X column · icon variant) → description (full width) → optional content → actions.
    Two densities, one skeleton: message sheets (header + actions) and form sheets (header + fields/consents + actions).
+   Type: nav title 14/20 Medium · content heading 16/22 Regular · body 13/20 · meta 12/16 (text.popup-*).
    Rhythm: header row→description 12 · icon→title 12 · description→content 24 · fields 16 · consents 12 ·
    message → actions 24 · form → actions 32 · primary→text action 8 · top, sides and bottom 24. Values from spacing.* / popup.sheet.* tokens only. */
 .ps {
@@ -28,28 +29,22 @@
   align-items: start;
 }
 .ps__head > * { grid-column: 1 / -1; }
-.ps__head > .ps__title, .ps__head > .ps__titles { grid-column: 1; grid-row: 1; }
-.ps__head:not(:has(> .ps__close)) > :is(.ps__title, .ps__titles) { grid-column: 1 / -1; } /* no X → no reserved column */
+.ps__head > .ps__title { grid-column: 1; grid-row: 1; }
+.ps__head:not(:has(> .ps__close)) > .ps__title { grid-column: 1 / -1; } /* no X → no reserved column */
 .ps__head > .ps__close {
   grid-column: 2;
   grid-row: 1;
   width: calc(var(--popup-sheet-close-size) + var(--popup-sheet-close-inset) - var(--popup-sheet-padding-inline));
   height: calc(var(--popup-sheet-close-size) + var(--popup-sheet-close-inset) - var(--ps-pad-top));
 }
-.ps__titles { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); }
-.ps__kicker { color: var(--ink-3); }
-.ps__title {
-  margin: 0;
-  font: var(--sheet-title-weight) var(--sheet-title-size) / var(--sheet-title-line-height) var(--font-family-sans);
-  letter-spacing: var(--sheet-title-letter-spacing);
-  color: var(--color-black-3);
-}
+.ps__title { margin: 0; color: var(--color-black-3); } /* type: ds-text-popup-heading (≤16) */
 .ps__text { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); color: var(--ink-2); }
 .ps__head > .ds-callout { margin-top: var(--spacing-compact-stack); } /* note box reads as part of the description */
 
 /* Pattern A — navigation header (experimental): the title sits in the close-button band (inset 16 → 60), centred on
    the whole panel. Symmetric side padding equal to the X footprint + gap keeps it optically centred and clear of the
-   X; up to two lines, the band grows downward. Compact type: heading-s (16/24 Regular). Content starts 24 below. */
+   X; up to two lines, the band grows downward. Type: ds-text-popup-nav-title (14/20 Medium). An optional content
+   heading (ds-text-popup-heading, 16) and the content start 24 below the band. */
 .ps__head--nav { display: flex; flex-direction: column; align-items: stretch; gap: var(--popup-sheet-heading-description); }
 .ps__nav {
   display: flex;
@@ -65,10 +60,6 @@
 /* Icon-led variant (sign-in gates): centred column with no reserved X column. The 36pt icon sits in the X's band
    (top 24–60, centred, clear of the X); the title starts below the X, so no text shares a row with it. */
 .ps__head--centered { display: flex; flex-direction: column; align-items: center; gap: var(--popup-sheet-heading-description); text-align: center; }
-.ps__head--centered > .ps__title { /* prompts read as messages: same compact heading as Pattern A */
-  font: var(--text-heading-s-weight) var(--text-heading-s-size) / var(--text-heading-s-line-height) var(--font-family-sans);
-  letter-spacing: var(--text-heading-s-letter-spacing);
-}
 .ps__icon { position: relative; display: flex; margin-bottom: calc(var(--popup-sheet-icon-heading) - var(--popup-sheet-heading-description)); color: var(--color-black-3); }
 .ps__badge { position: absolute; top: -3.38px; left: 23.63px; width: 18px; height: 18px; display: grid; place-items: center; --corner-radius: 50%; background: rgba(255, 255, 255, 0.8); }
 

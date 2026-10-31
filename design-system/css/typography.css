@@ -17,5 +17,11 @@ h1, h2, h3, h4, h5, h6, b, strong, th { font-weight: inherit; } /* browser defau
 
 @media (pointer: coarse) { .ds-text-input { font-size: var(--text-input-touch-size); } } /* iOS Safari zooms inputs below 16px */
 
+/* Popup roles (docs/typography.md → "Popup typography"): navigation title ≤14, content heading ≤16, body 13–14, meta 12–13. */
+.ds-text-popup-nav-title { font: var(--text-popup-nav-title-weight) var(--text-popup-nav-title-size) / var(--text-popup-nav-title-line-height) var(--font-family-sans); letter-spacing: var(--text-popup-nav-title-letter-spacing); }
+.ds-text-popup-heading   { font: var(--text-popup-heading-weight) var(--text-popup-heading-size) / var(--text-popup-heading-line-height) var(--font-family-sans); letter-spacing: var(--text-popup-heading-letter-spacing); }
+.ds-text-popup-body      { font: var(--text-popup-body-weight) var(--text-popup-body-size) / var(--text-popup-body-line-height) var(--font-family-sans); letter-spacing: var(--text-popup-body-letter-spacing); }
+.ds-text-popup-meta      { font: var(--text-popup-meta-weight) var(--text-popup-meta-size) / var(--text-popup-meta-line-height) var(--font-family-sans); letter-spacing: var(--text-popup-meta-letter-spacing); }
+
 /* Heading → supporting text: never closer than spacing.text.heading-body-min. Use this wrapper for the pair. */
 .ds-text-group { display: flex; flex-direction: column; gap: var(--spacing-text-heading-body-min); margin: 0; }

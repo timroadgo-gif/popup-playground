@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=e353b1c2a59d";
+import { sheet, head, actions } from "../ui/sheet.js?v=2cc564c7d558";
 
 // Figma «Работа» 497:3973
 export default {

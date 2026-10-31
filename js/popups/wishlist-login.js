@@ -1,5 +1,5 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=e353b1c2a59d";
-import { createField } from "../../design-system/components/field/field.js?v=e353b1c2a59d";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=2cc564c7d558";
+import { createField } from "../../design-system/components/field/field.js?v=2cc564c7d558";
 
 // Figma «Работа» 482:2594. Glass close button added on request (not in the Figma node).
 export default {
@@ -9,7 +9,7 @@ export default {
   hint: "Figma 482:2594 · поле почты, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(
-    head({ align: "center", icon: "heart", badge: "+1", title: "Войдите или зарегистрируйтесь,", text: "чтобы сохранять любимые лоты в вишлист \nи делиться ими" }),
+    head({ align: "center", icon: "heart", badge: "+1", title: "Войдите или зарегистрируйтесь", text: "чтобы сохранять любимые лоты в вишлист \nи делиться ими" }),
     body([createField({ label: "Почта", placeholder: "annawintour@vogue.com", type: "email", autocomplete: "email" })]),
     actions({ primary: { label: "Продолжить", onClick: close } }),
   ),

@@ -1,9 +1,9 @@
 // Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=e353b1c2a59d";
-import { adaptHeaders } from "./ui/sheet.js?v=e353b1c2a59d";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=e353b1c2a59d";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=2cc564c7d558";
+import { adaptHeaders } from "./ui/sheet.js?v=2cc564c7d558";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=2cc564c7d558";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
