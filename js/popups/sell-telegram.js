@@ -1,11 +1,10 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=60a89303b059";
+import { sheet, head, actions } from "../ui/sheet.js?v=51a100bad073";
 
 // Figma «Работа» 497:3982. The bot link is not in the source, so both actions only close the sheet.
 export default {
   id: "sell-telegram",
   kind: "sheet",
   title: "Будем на связи",
-  contextTitle: "Связаться с нами",
   hint: "Figma 497:3982 · две кнопки, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(

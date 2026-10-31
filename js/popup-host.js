@@ -1,8 +1,8 @@
 // Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=60a89303b059";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=60a89303b059";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=51a100bad073";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=51a100bad073";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -30,26 +30,19 @@ export function createHost({ layer, background, getScale = () => 1 }) {
 
     panel.setAttribute("role", variant.role || "dialog");
     panel.setAttribute("aria-modal", "true");
-    panel.setAttribute("aria-label", variant.contextTitle || variant.title);
+    panel.setAttribute("aria-label", variant.title);
     panel.tabIndex = -1;
-    // Navigation header: short context title (variant.contextTitle, explicit metadata — never derived from the content
-    // heading) centred on the panel, glass X on the right. It stays fixed; the content scrolls below it.
-    if (variant.contextTitle || dismiss.closeButton) {
-      const nav = el("popup__nav");
-      if (variant.contextTitle) {
-        const t = Object.assign(document.createElement("p"), { className: "popup__context-title ds-text-popup-nav-title", textContent: variant.contextTitle });
-        if (variant.contextTitle.trim().split(/\s+/).length > 3) console.warn(`contextTitle "${variant.contextTitle}" exceeds 3 words`);
-        nav.append(t);
-      }
-      if (dismiss.closeButton) {
-        const slot = el("popup__close");
-        slot.append(glassCloseButton(ctx.close));
-        nav.append(slot);
-      }
-      panel.append(nav);
-    }
     scroll.append(variant.render(ctx));
     panel.append(scroll);
+    // The X sits top-trailing and stays put while content scrolls. Headers reserve its column with [data-close-slot];
+    // without an X that spacer is removed so the heading takes the full width.
+    if (dismiss.closeButton) {
+      const bar = el("popup__toolbar");
+      bar.append(glassCloseButton(ctx.close));
+      panel.append(bar);
+    } else {
+      scroll.querySelectorAll("[data-close-slot]").forEach((n) => n.remove());
+    }
     root.append(backdrop, panel);
     layer.append(root);
     background.forEach((n) => (n.inert = true));

@@ -1,31 +1,38 @@
-/* Popup content skeleton (js/ui/sheet.js), below the host's navigation header (contextTitle + X):
-   content heading → description (full width) → optional content → actions. Two roles, never mixed:
-   contextTitle = short scenario label in the navigation header (1–3 words, single line, 14 Regular);
-   contentHeading = the informational heading in the content (≤16, multiline, full width).
-   Type: context title 14/20 Regular · content heading 16/22 Regular · body 13/20 · meta 12/16 (text.popup-*).
-   Rhythm: navigation → content 16 · heading → description 12 · icon → heading 12 · description → content 24 · fields 16 ·
-   consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides and bottom 24. */
+/* Popup content skeleton (js/ui/sheet.js). One primary heading per standard popup.
+   Header grid: heading (flexible, multiline, left-aligned) + a reserved column for the glass X (44×44, inset 16).
+   Description and everything else sit below the grid at full content width — text never wraps around the X.
+   Type: heading 16/22 Regular (≤16) · body 13/20 · meta 12/16 (text.popup-*).
+   Rhythm: top 24 · heading → description 12 (14 for a one-line heading, see .ps__close) · icon → heading 12 ·
+   description → content 24 · fields 16 · consents 12 · message → actions 24 · form → actions 32 ·
+   primary → text action 8 · sides and bottom 24. */
 .ps {
-  --ps-pad-top: var(--spacing-standard-block);  /* no navigation header */
+  --ps-pad-top: var(--spacing-standard-block);
   display: flex;
   flex-direction: column;
   padding: var(--ps-pad-top) var(--popup-sheet-padding-inline) var(--popup-sheet-padding-bottom);
   color: var(--color-black-3);
 }
-.popup__nav + .popup__scroll .ps { --ps-pad-top: var(--spacing-standard-control); } /* below the navigation header: 16 */
 .ps p { margin: 0; }
 .ps > * + .ps__body { margin-top: var(--spacing-standard-block); }
 .ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }       /* message: description → actions 24 */
 .ps > .ps__body + .ps__actions { margin-top: var(--spacing-spacious-group); } /* form: fields → actions 32 */
 
-/* Content header: content heading (full width, multiline) → description → optional extra. The context title and the
-   X live in the host's navigation header above, so nothing here shares a row with the X. */
+/* Header: grid with the heading column and the X column; description etc. follow the grid, full width. */
 .ps__head { display: flex; flex-direction: column; gap: var(--popup-sheet-heading-description); }
-.ps__title { margin: 0; color: var(--color-black-3); } /* contentHeading — type: ds-text-popup-heading (≤16) */
+.ps__header { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--spacing-compact-inline); align-items: start; }
+.ps__title { margin: 0; color: var(--color-black-3); } /* type: ds-text-popup-heading (≤16) */
+/* Spacer for the floating X, inside the content box. Width: the X's footprint (44 + inset 16 − side padding 24).
+   Height: down to the X's bottom edge minus the heading gap, so with a one-line heading the description starts exactly
+   below the X (gap 14), and with a longer heading the normal 12 applies. */
+.ps__close {
+  width: calc(var(--popup-sheet-close-size) + var(--popup-sheet-close-inset) - var(--popup-sheet-padding-inline));
+  height: calc(var(--popup-sheet-close-inset) + var(--popup-sheet-close-size) - var(--ps-pad-top) - var(--popup-sheet-heading-description));
+}
 .ps__text { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); color: var(--ink-2); }
 .ps__head > .ds-callout { margin-top: var(--spacing-compact-stack); } /* note box reads as part of the description */
 
-/* Icon-led variant (sign-in gates): centred icon, content heading and description. */
+/* Icon-led variant (sign-in gates): centred icon in the X band (24–60), heading and description below — one heading,
+   no reserved column needed because no text shares a row with the X. */
 .ps__head--centered { display: flex; flex-direction: column; align-items: center; gap: var(--popup-sheet-heading-description); text-align: center; }
 .ps__icon { position: relative; display: flex; margin-bottom: calc(var(--popup-sheet-icon-heading) - var(--popup-sheet-heading-description)); color: var(--color-black-3); }
 .ps__badge { position: absolute; top: -3.38px; left: 23.63px; width: 18px; height: 18px; display: grid; place-items: center; --corner-radius: 50%; background: rgba(255, 255, 255, 0.8); }

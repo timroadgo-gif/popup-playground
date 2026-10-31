@@ -1,12 +1,11 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=60a89303b059";
-import { createCallout } from "../../design-system/components/callout/callout.js?v=60a89303b059";
+import { sheet, head, actions } from "../ui/sheet.js?v=51a100bad073";
+import { createCallout } from "../../design-system/components/callout/callout.js?v=51a100bad073";
 
 // Figma «Работа» 497:4298
 export default {
   id: "sell-no-estimate",
   kind: "sheet",
   title: "Не удалось рассчитать стоимость",
-  contextTitle: "Оценка стоимости",
   hint: "Figma 497:4298 · плашка, две кнопки, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(

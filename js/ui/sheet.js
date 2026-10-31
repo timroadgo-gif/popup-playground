@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=60a89303b059";
-import { createIcon } from "../../design-system/icons/icon.js?v=60a89303b059";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=60a89303b059";
+import { createButton } from "../../design-system/components/button/button.js?v=51a100bad073";
+import { createIcon } from "../../design-system/icons/icon.js?v=51a100bad073";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=51a100bad073";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -37,14 +37,22 @@ export function sheet(...blocks) {
 // Popup headings never end with a period or comma (approved editorial rule, design-system/docs/typography.md).
 const clean = (t) => (t ? t.replace(/[.,]+$/u, "") : t);
 
-// Content header. `heading` is the contentHeading (informational, ≤16, multiline). The short contextTitle is variant
-// metadata rendered by the host in the navigation header — never pass it here, never derive one from the other.
+// Header: one primary heading per standard popup. Leading layout = grid of heading + reserved X column
+// ([data-close-slot], removed by the host when there is no X); text and extra follow at full width.
 // align "center" is the icon-led variant for sign-in gates.
 export function head({ heading, text, extra, icon, badge, align = "start" }) {
   const centered = align === "center";
+  const h = heading ? node("h2", "ps__title ds-text-popup-heading", [clean(heading)]) : null;
+  let top = h;
+  if (!centered && h) {
+    const slot = node("div", "ps__close");
+    slot.dataset.closeSlot = "";
+    slot.setAttribute("aria-hidden", "true");
+    top = node("div", "ps__header", [h, slot]);
+  }
   return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
     icon ? contextIcon(icon, badge) : null,
-    heading ? node("h2", "ps__title ds-text-popup-heading", [clean(heading)]) : null,
+    top,
     text ? textBlock(text) : null,
     extra,
   ]);

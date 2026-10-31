@@ -1,11 +1,10 @@
-import { sheet, head } from "../ui/sheet.js?v=60a89303b059";
+import { sheet, head } from "../ui/sheet.js?v=51a100bad073";
 
 // Figma «Работа» 497:4310. Text only; closes via Close, swipe, backdrop or Escape.
 export default {
   id: "sell-how-estimate",
   kind: "sheet",
   title: "Как мы рассчитываем стоимость",
-  contextTitle: "Оценка стоимости",
   hint: "Figma 497:4310 · только текст, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: () => sheet(

@@ -1,4 +1,4 @@
-import { sheet, head, body, node } from "../ui/sheet.js?v=60a89303b059";
+import { sheet, head, body, node } from "../ui/sheet.js?v=51a100bad073";
 
 // Content-heavy informational sheet (template). Read-only, closing loses nothing → Close + swipe, single detent,
 // dismissible via backdrop. Copy is placeholder.
@@ -8,7 +8,6 @@ export default {
   id: "info-sheet",
   kind: "sheet",
   title: "Информационная шторка",
-  contextTitle: "Экспертиза",
   hint: "Только чтение · Close + свайп вниз",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: () => sheet(

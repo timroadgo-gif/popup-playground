@@ -1,12 +1,11 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=60a89303b059";
-import { createField } from "../../design-system/components/field/field.js?v=60a89303b059";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=51a100bad073";
+import { createField } from "../../design-system/components/field/field.js?v=51a100bad073";
 
 // Figma «Работа» 482:2594. Glass close button added on request (not in the Figma node).
 export default {
   id: "wishlist-login",
   kind: "sheet",
   title: "Вход ради вишлиста",
-  contextTitle: "Авторизация",
   hint: "Figma 482:2594 · поле почты, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(

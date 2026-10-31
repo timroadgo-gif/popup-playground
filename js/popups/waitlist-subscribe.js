@@ -1,13 +1,12 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=60a89303b059";
-import { createField } from "../../design-system/components/field/field.js?v=60a89303b059";
-import { createAccountNotice } from "../../design-system/components/account-notice/account-notice.js?v=60a89303b059";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=51a100bad073";
+import { createField } from "../../design-system/components/field/field.js?v=51a100bad073";
+import { createAccountNotice } from "../../design-system/components/account-notice/account-notice.js?v=51a100bad073";
 
 // Figma «Работа» 497:4011. Dropdown option lists are not defined in the source, so the selects open nothing.
 export default {
   id: "waitlist-subscribe",
   kind: "sheet",
   title: "Подписаться на модель",
-  contextTitle: "Лист ожидания",
   hint: "Figma 497:4011 · форма, 5 полей, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(

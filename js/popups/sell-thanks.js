@@ -1,11 +1,10 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=60a89303b059";
+import { sheet, head, actions } from "../ui/sheet.js?v=51a100bad073";
 
 // Figma «Работа» 497:3973
 export default {
   id: "sell-thanks",
   kind: "sheet",
   title: "Спасибо за информацию",
-  contextTitle: "Подтверждение",
   hint: "Figma 497:3973 · текст, кнопка, Close",
   dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
   render: ({ close }) => sheet(
