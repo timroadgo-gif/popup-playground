@@ -36,11 +36,3 @@
   .popup--sheet .popup__panel, .popup--sheet.is-closing .popup__panel { transform: none; opacity: 0; transition: opacity 0.2s; }
   .popup--sheet.is-open .popup__panel { opacity: 1; }
 }
-
-/* Variant: info sheet — editorial density: spacious group gap before the list, standard text-group between title and body */
-.info { padding: var(--popup-sheet-padding-top) var(--popup-sheet-padding-inline) calc(var(--safe-bottom) + var(--spacing-compact-inline)); }
-.info__title { margin: var(--spacing-standard-block) 0 0; }
-.info__body { margin: var(--spacing-standard-text-group) 0 0; color: var(--ink-2); }
-.info__steps { list-style: none; margin: var(--spacing-spacious-group) 0 0; padding: 0; border-top: 1px solid var(--hairline); }
-.info__steps li { display: flex; gap: var(--spacing-standard-control); align-items: baseline; padding: var(--spacing-standard-control) 0; border-bottom: 1px solid var(--hairline); }
-.info__steps span { width: 24px; color: var(--ink-3); font-variant-numeric: tabular-nums; }

@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=3f44dd6d4607";
+import { sheet, head, actions } from "../ui/sheet.js?v=c2abed233231";
 
 // Figma «Работа» 497:3952. Close button added by the approved dismissal policy (optional, non-destructive sheet); not in the Figma node.
 export default {

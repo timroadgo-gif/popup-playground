@@ -1,8 +1,8 @@
 /* Popup sheet skeleton (js/ui/sheet.js), shared by every popup:
-   header (title + glass X in one row; optional icon variant) → description (full width) → optional content → actions.
+   header (title rectangle + reserved X column; optional icon variant) → description (full width) → optional content → actions.
    Two densities, one skeleton: message sheets (header + actions) and form sheets (header + fields/consents + actions).
-   Rhythm: title→description 12 · icon→title 12 · description→content 24 · fields 16 · consents 12 · content→actions 24 ·
-   primary→text action 8 · top, sides and bottom 24. Values from spacing.* / popup.sheet.* tokens only. */
+   Rhythm: header row→description 12 · icon→title 12 · description→content 24 · fields 16 · consents 12 ·
+   message → actions 24 · form → actions 32 · primary→text action 8 · top, sides and bottom 24. Values from spacing.* / popup.sheet.* tokens only. */
 .ps {
   --ps-pad-top: var(--spacing-standard-block);
   display: flex;
@@ -12,10 +12,14 @@
 }
 .ps p { margin: 0; }
 .ps > * + .ps__body { margin-top: var(--spacing-standard-block); }
-.ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }
+.ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }       /* message: description → actions 24 */
+.ps > .ps__body + .ps__actions { margin-top: var(--spacing-spacious-group); } /* form: fields → actions 32 */
 
-/* Header: a grid with a flexible title column and the 44pt X column, top-aligned.
-   Everything after the title (description, callout) spans the full width. */
+/* Header: a grid with a flexible title column and a reserved column for the close control, top-aligned.
+   The X itself floats in the panel (host toolbar, fixed while content scrolls); .ps__close is an empty spacer with
+   exactly the X's footprint inside the content box. So the title is a clean rectangle beside it, and everything after
+   the header row (description, callout) starts below both the title and the X, full width — text never runs beside
+   and then under the control. */
 .ps__head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -24,19 +28,16 @@
   align-items: start;
 }
 .ps__head > * { grid-column: 1 / -1; }
-.ps__head > .ps__title { grid-column: 1; grid-row: 1; }
-.ps__head:not(:has(> .ps__close)) > .ps__title { grid-column: 1 / -1; } /* no X → no reserved column or gap */
-/* The X keeps its place (close-inset from the panel's top and trailing edges) via negative margins, and takes up
-   only one title line in the row, so it never pushes the description down. A one-line title ends above the X's
-   bottom edge plus the heading gap, so nothing overlaps. */
+.ps__head > .ps__title, .ps__head > .ps__titles { grid-column: 1; grid-row: 1; }
+.ps__head:not(:has(> .ps__close)) > :is(.ps__title, .ps__titles) { grid-column: 1 / -1; } /* no X → no reserved column */
 .ps__head > .ps__close {
   grid-column: 2;
   grid-row: 1;
-  display: flex;
-  margin-top: calc(var(--popup-sheet-close-inset) - var(--ps-pad-top));
-  margin-inline-end: calc(var(--popup-sheet-close-inset) - var(--popup-sheet-padding-inline));
-  margin-bottom: calc(var(--sheet-title-line-height) - var(--popup-sheet-close-size) - var(--popup-sheet-close-inset) + var(--ps-pad-top));
+  width: calc(var(--popup-sheet-close-size) + var(--popup-sheet-close-inset) - var(--popup-sheet-padding-inline));
+  height: calc(var(--popup-sheet-close-size) + var(--popup-sheet-close-inset) - var(--ps-pad-top));
 }
+.ps__titles { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); }
+.ps__kicker { color: var(--ink-3); }
 .ps__title {
   margin: 0;
   font: var(--sheet-title-weight) var(--sheet-title-size) / var(--sheet-title-line-height) var(--font-family-sans);
@@ -46,13 +47,16 @@
 .ps__text { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); color: var(--ink-2); }
 .ps__head > .ds-callout { margin-top: var(--spacing-compact-stack); } /* note box reads as part of the description */
 
-/* Icon-led variant (sign-in gates): centred column; the X floats top-trailing outside the flow (host toolbar),
-   clear of the centred 36pt icon, so it adds no row. */
+/* Icon-led variant (sign-in gates): centred column with no reserved X column. The 36pt icon sits in the X's band
+   (top 24–60, centred, clear of the X); the title starts below the X, so no text shares a row with it. */
 .ps__head--centered { display: flex; flex-direction: column; align-items: center; gap: var(--popup-sheet-heading-description); text-align: center; }
 .ps__icon { position: relative; display: flex; margin-bottom: calc(var(--popup-sheet-icon-heading) - var(--popup-sheet-heading-description)); color: var(--color-black-3); }
 .ps__badge { position: absolute; top: -3.38px; left: 23.63px; width: 18px; height: 18px; display: grid; place-items: center; --corner-radius: 50%; background: rgba(255, 255, 255, 0.8); }
 
 .ps__body { display: flex; flex-direction: column; gap: var(--popup-sheet-field-gap); }
 .ps__body--compact { gap: var(--spacing-standard-text-group); } /* consent rows */
+.ps__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
+.ps__list li { display: flex; gap: var(--spacing-standard-control); align-items: baseline; padding: var(--spacing-standard-control) 0; border-bottom: 1px solid var(--hairline); }
+.ps__list li > span { width: 24px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
 .ps__actions { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); }

@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=3f44dd6d4607";
-import { createIcon } from "../../design-system/icons/icon.js?v=3f44dd6d4607";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=3f44dd6d4607";
+import { createButton } from "../../design-system/components/button/button.js?v=c2abed233231";
+import { createIcon } from "../../design-system/icons/icon.js?v=c2abed233231";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=c2abed233231";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -34,19 +34,22 @@ export function sheet(...blocks) {
   return node("section", "ps", blocks);
 }
 
-// Header: optional contextual icon (+ badge), title, supporting text, optional extra (e.g. a callout).
-// Leading headers put the title and the close button in one row ([data-close-slot], filled by the host).
-// align "center" (icon-led sign-in gates) leaves the X floating top-trailing, outside the flow.
-export function head({ title, text, extra, icon, badge, align = "start" }) {
+// Header: optional contextual icon (+ badge), optional kicker, title, supporting text, optional extra (e.g. a callout).
+// Leading headers reserve the X's footprint ([data-close-slot]); the host removes it when there is no X.
+// align "center" (icon-led sign-in gates) reserves nothing: the icon shares the X's band, text starts below it.
+export function head({ title, kicker, text, extra, icon, badge, align = "start" }) {
   const centered = align === "center";
   let slot = null;
   if (!centered) {
     slot = node("div", "ps__close");
     slot.dataset.closeSlot = "";
+    slot.setAttribute("aria-hidden", "true");
   }
+  const h = title ? node("h2", "ps__title", [title]) : null;
+  const titleBlock = kicker && h ? node("div", "ps__titles", [Object.assign(node("p", "ps__kicker ds-text-overline"), { textContent: kicker }), h]) : h;
   return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
     icon ? contextIcon(icon, badge) : null,
-    title ? node("h2", "ps__title", [title]) : null,
+    titleBlock,
     slot,
     text ? textBlock(text) : null,
     extra,
