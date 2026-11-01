@@ -2,7 +2,7 @@
    Header: X control row (top-trailing) → heading → description, all full width — text never shares a row with the X.
    Type: heading 16/22 Regular (≤16) · description 12/17 Regular · meta 12/16 (text.popup-*).
    Rhythm: X (visible 32) at 16 from top/trailing · X region → heading 12 · heading → description 12 · icon → heading 12 · description → content 24 ·
-   fields 16 · consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides 24 · bottom 32. */
+   fields 16 · consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides 24 · bottom 32 after actions, 56 after text (Figma 510:2838: ~60 above the heading, a bit less below the text). */
 .ps {
   --ps-pad-top: var(--spacing-standard-block);
   display: flex;
@@ -10,6 +10,7 @@
   padding: var(--ps-pad-top) var(--popup-sheet-padding-inline) var(--popup-sheet-padding-bottom);
   color: var(--color-black-3);
 }
+.ps:not(:has(> .ps__actions)) { padding-bottom: var(--popup-sheet-padding-bottom-text); } /* ends in text: Figma 510:2838 balance */
 .ps p { margin: 0; }
 .ps > * + .ps__body { margin-top: var(--spacing-standard-block); }
 .ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }       /* message: description → actions 24 */

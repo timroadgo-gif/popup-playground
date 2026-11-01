@@ -146,6 +146,7 @@
   --popup-sheet-padding-inline: var(--spacing-standard-block);
   --popup-sheet-padding-top: var(--spacing-spacious-group);
   --popup-sheet-padding-bottom: var(--spacing-spacious-group);
+  --popup-sheet-padding-bottom-text: calc(var(--spacing-spacious-section) + var(--spacing-compact-inline));
   --popup-sheet-icon-heading: var(--spacing-standard-text-group);
   --popup-sheet-heading-description: var(--spacing-text-heading-body-min);
   --popup-sheet-description-form: var(--spacing-spacious-group);
