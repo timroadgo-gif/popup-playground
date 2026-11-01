@@ -25,6 +25,17 @@
 .ps__header { display: flex; flex-direction: column; align-items: flex-start; gap: var(--ps-close-heading); }
 .ps__title { margin: 0; color: var(--color-black-3); } /* type: ds-text-popup-heading (≤16) */
 .ps__close { display: flex; margin-top: calc(var(--popup-sheet-close-inset) - var(--ps-pad-top)); }
+/* Header lab (comparison only, not a default; see js/popups/header-lab.js). Same copy, type and glass X.
+   A «close-leading»: the X is the top-leading anchor on the shared left edge (24, same as the text; 16 from the
+   top), and the text group starts one compact gap (12) under the X band — X, heading and description share one
+   vertical, and the heading reads as the start of the text group rather than a caption of the X.
+   B «close-trailing»: heading and X share one row — X at the corner inset (16/16), heading bottom-aligned so a
+   one-line heading ends level with the X's bottom edge; longer headings grow down; description full width, 12
+   below the row. Row height follows the heading: no line counts, no fixed heights. */
+.ps__head--close-leading .ps__header { gap: var(--spacing-standard-text-group); }
+.ps__head--close-trailing .ps__header { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title close"; column-gap: var(--spacing-standard-control); }
+.ps__head--close-trailing .ps__title { grid-area: title; align-self: end; }
+.ps__head--close-trailing .ps__close { grid-area: close; margin-inline-end: calc(var(--popup-sheet-close-inset) - var(--popup-sheet-padding-inline)); }
 .ps__text { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); color: var(--color-black-3); } /* Figma: black-3 */
 
 /* Icon-led variant (sign-in gates): centred icon in the X band (24–60), heading and description below — one heading,

@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=f9fbf56eec5a";
-import { createIcon } from "../../design-system/icons/icon.js?v=f9fbf56eec5a";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=f9fbf56eec5a";
+import { createButton } from "../../design-system/components/button/button.js?v=514a9345035d";
+import { createIcon } from "../../design-system/icons/icon.js?v=514a9345035d";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=514a9345035d";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -41,7 +41,8 @@ const clean = (t) => (t ? t.replace(/[.,]+$/u, "") : t);
 // ([data-close-slot]: the host puts the glass X there, or removes it when there is no X), then the heading;
 // text and extra follow at full width.
 // align "center" is the icon-led variant for sign-in gates.
-export function head({ heading, text, extra, icon, badge, align = "start" }) {
+// layout (header lab, not a default): "close-leading" = Variant A, "close-trailing" = Variant B (css/sheet.css).
+export function head({ heading, text, extra, icon, badge, align = "start", layout }) {
   const centered = align === "center";
   const h = heading ? node("h2", "ps__title ds-text-popup-heading", [clean(heading)]) : null;
   let top = h;
@@ -50,7 +51,7 @@ export function head({ heading, text, extra, icon, badge, align = "start" }) {
     slot.dataset.closeSlot = "";
     top = node("div", "ps__header", [slot, h]);
   }
-  return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
+  return node("div", `ps__head${centered ? " ps__head--centered" : ""}${layout ? ` ps__head--${layout}` : ""}`, [
     icon ? contextIcon(icon, badge) : null,
     top,
     text ? textBlock(text) : null,
