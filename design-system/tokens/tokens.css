@@ -222,4 +222,13 @@
   --account-notice-avatar-foreground: var(--color-black-3);
   --account-notice-link-default: var(--color-action-secondary-foreground-default);
   --account-notice-link-pressed: var(--color-action-secondary-foreground-pressed);
+  --alert-width: 300px;
+  --alert-inset: var(--spacing-standard-block);
+  --alert-padding: var(--spacing-standard-block);
+  --alert-radius: 24px;
+  --alert-heading-message: var(--spacing-text-heading-body-min);
+  --alert-message-actions: var(--spacing-standard-block);
+  --alert-action-gap: var(--spacing-compact-inline);
+  --alert-background: var(--color-white);
+  --alert-foreground: var(--color-black-3);
 }

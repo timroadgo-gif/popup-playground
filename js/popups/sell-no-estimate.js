@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=8ee28e846d7c";
+import { sheet, head, actions } from "../ui/sheet.js?v=556bc19251c3";
 
 // Figma «Работа» 497:4298. The explanation is ordinary description text on the sheet (no callout panel),
 // as in the Figma «Pop Up Текст» frames.

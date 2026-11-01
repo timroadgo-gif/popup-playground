@@ -6,13 +6,23 @@
 //   prompt     — state + one or two paths, no input; closing loses nothing
 //   completion — confirms something already done and says what happens next
 //   form       — collects data (fields, consents, selects)
-const ALL = { closeButton: true, swipe: true, backdrop: true, escape: true };
+// `guard`: once the user has changed a field, X / swipe / backdrop / Escape ask before discarding it (alert below);
+// the popup's own buttons (Continue, "without e-mail", links) close directly — they are deliberate choices.
+const ALL = { closeButton: true, swipe: true, backdrop: true, escape: true, guard: false };
 
 export const PATTERNS = {
   info: ALL,
   prompt: ALL,
   completion: ALL,
-  form: ALL, // planned (stage 3, needs approval): confirm before discarding entered data
+  form: { ...ALL, guard: true }, // stage 3, approved 2026-11-01
+};
+
+// Discard confirmation (design-system Alert). Copy is a draft pending approval.
+export const DISCARD_ALERT = {
+  heading: "Закрыть без сохранения?",
+  message: "Введённые данные не сохранятся.",
+  confirm: "Закрыть",
+  cancel: "Отмена",
 };
 
 export function dismissPolicy(variant) {

@@ -33,7 +33,16 @@
    content scrolls. Used only when the sheet has no header row for it (icon-led prompts, css/sheet.css). */
 .popup__toolbar { position: absolute; top: var(--popup-sheet-close-inset); right: var(--popup-sheet-close-inset); z-index: 2; }
 
+/* Discard confirmation (design-system Alert) centred over the sheet; its nested backdrop adds no dimming and ignores taps. */
+.popup__alert { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; }
+.popup__alert .ds-alert { position: relative; opacity: 0; transform: scale(1.06); transition: opacity 0.2s, transform 0.25s var(--ease-sheet); }
+.popup__alert.is-open .ds-alert { opacity: 1; transform: none; }
+@supports (corner-shape: superellipse(2)) {
+  .popup__alert .ds-alert { box-shadow: 0 0 36px rgba(0, 0, 0, 0.1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .popup--sheet .popup__panel, .popup--sheet.is-closing .popup__panel { transform: none; opacity: 0; transition: opacity 0.2s; }
   .popup--sheet.is-open .popup__panel { opacity: 1; }
+  .popup__alert .ds-alert { transform: none; transition: opacity 0.15s; }
 }
