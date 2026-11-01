@@ -1,8 +1,8 @@
 /* Popup content skeleton (js/ui/sheet.js). One primary heading per standard popup.
    Header: X control row (top-trailing) → heading → description, all full width — text never shares a row with the X.
    Type: heading 16/22 Regular (≤16) · description 12/17 Regular · meta 12/16 (text.popup-*).
-   Rhythm: X at 16 from top/trailing · X region → heading 12 · heading → description 12 · icon → heading 12 · description → content 24 ·
-   fields 16 · consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides and bottom 24. */
+   Rhythm: X (visible 32) at 16 from top/trailing · X region → heading 12 · heading → description 12 · icon → heading 12 · description → content 24 ·
+   fields 16 · consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides 24 · bottom 32. */
 .ps {
   --ps-pad-top: var(--spacing-standard-block);
   display: flex;
@@ -15,7 +15,8 @@
 .ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }       /* message: description → actions 24 */
 .ps > .ps__body + .ps__actions { margin-top: var(--spacing-spacious-group); } /* form: fields → actions 32 */
 
-/* Header: three stacked regions (Airbnb-style sheet, Mobbin e4fabac4…): the 44×44 glass X in its own top-trailing
+/* Header: three stacked regions (Airbnb-style sheet, Mobbin e4fabac4…): the compact glass X (visible 32, hit 44;
+   its layout footprint is the visible circle) in its own top-trailing
    control row, then the heading, then the description. The X sits at the close inset from the top and trailing
    edges (negative margins pull it out of the content padding); the heading starts one gap below the X region on
    the left content edge and uses the full width — no column is reserved for the X, nothing is centred on it, and

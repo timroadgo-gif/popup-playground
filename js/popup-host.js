@@ -1,8 +1,8 @@
 // Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=39feac9d04b7";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=39feac9d04b7";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=2cd7a7f418a6";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=2cd7a7f418a6";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -10,9 +10,9 @@ const SWIPE_KINDS = new Set(["sheet"]);
 
 const el = (cls) => Object.assign(document.createElement("div"), { className: cls });
 
-// Close control = shared IconButton / Glass / Light / 44 (canonical GlassSurface material).
+// Close control = shared IconButton / Glass / Light, compact: secondary 32 glass circle, 44 × 44 hit area.
 export function glassCloseButton(onClick) {
-  return createIconButton({ icon: "close", ariaLabel: "Закрыть", onClick });
+  return createIconButton({ icon: "close", ariaLabel: "Закрыть", size: "compact", onClick });
 }
 
 export function createHost({ layer, background, getScale = () => 1 }) {
