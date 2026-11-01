@@ -1,6 +1,6 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=0f74c2737810";
-import { createField } from "../../design-system/components/field/field.js?v=0f74c2737810";
-import { createCheckbox } from "../../design-system/components/checkbox/checkbox.js?v=0f74c2737810";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=8ee28e846d7c";
+import { createField } from "../../design-system/components/field/field.js?v=8ee28e846d7c";
+import { createCheckbox } from "../../design-system/components/checkbox/checkbox.js?v=8ee28e846d7c";
 
 // Figma «Работа» 497:4279. Close button added by the approved dismissal policy (not in the Figma node); checkbox defaults as in the source
 // (offer unchecked, newsletter checked). The source defines no validation, so none is added.
@@ -9,7 +9,7 @@ export default {
   kind: "sheet",
   title: "Инсайдерская рассылка",
   hint: "Figma 497:4279 · почта, 2 согласия, Close",
-  dismiss: { closeButton: true, swipe: true, backdrop: true, escape: true },
+  pattern: "form",
   render: ({ close }) => sheet(
     head({ heading: "Еще немного инсайдерской информации?", text: [
       "Мы рассчитали стоимость вашей сумки — вы узнаете ее на следующем шаге.",

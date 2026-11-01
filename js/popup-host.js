@@ -1,8 +1,9 @@
-// Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
+// Popup host: one popup at a time. Variants supply content and a pattern (js/patterns.js → dismissal policy); the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=0f74c2737810";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=0f74c2737810";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=8ee28e846d7c";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=8ee28e846d7c";
+import { dismissPolicy } from "./patterns.js?v=8ee28e846d7c";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -20,7 +21,7 @@ export function createHost({ layer, background, getScale = () => 1 }) {
 
   function open(variant, trigger) {
     if (cur) return;
-    const dismiss = { backdrop: false, swipe: false, escape: false, closeButton: false, ...variant.dismiss };
+    const dismiss = dismissPolicy(variant);
     const root = el(`popup popup--${variant.kind}${variant.layout ? ` popup--${variant.layout}` : ""}`);
     const panel = el("popup__panel ds-corner");
     const scroll = el("popup__scroll");
