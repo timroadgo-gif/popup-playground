@@ -15,7 +15,7 @@
   --safe-top: 59px;
   --safe-bottom: 34px;
   --sheet-inset: 8px;
-  --sheet-r: 32px; /* approved 2026-10-31: restrained continuous radius instead of display-concentric 54 (not concentric with the display at the bottom) */
+  --sheet-r: calc(var(--display-r) - var(--sheet-inset)); /* original default, restored 2026-11-01: concentric with the display (62 − 8 = 54), so the bottom corners follow the iPhone screen corners instead of being cut by them */
 
 
   /* Figma colours now live in the design system (color.black.3, color.grey.*, color.green.2) */
