@@ -2,10 +2,10 @@
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=556bc19251c3";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=556bc19251c3";
-import { createAlert } from "../design-system/components/alert/alert.js?v=556bc19251c3";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=556bc19251c3";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=aa3029620a48";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=aa3029620a48";
+import { createAlert } from "../design-system/components/alert/alert.js?v=aa3029620a48";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=aa3029620a48";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -99,7 +99,7 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     c.alert = { wrap, backdrop, card };
     openBackdrop(backdrop);
     requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add("is-open")));
-    card.querySelector("[data-alert-cancel]").focus({ preventScroll: true });
+    card.querySelector("[data-alert-cancel]").focus({ preventScroll: true, focusVisible: false }); // ring only on keyboard navigation
   }
 
   function closeDiscardAlert(returnFocus) {

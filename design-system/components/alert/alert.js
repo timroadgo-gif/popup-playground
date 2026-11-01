@@ -1,7 +1,7 @@
 // Alert factory (confirmation of an urgent decision). createAlert({ heading, message, confirm, cancel }) → <div role="alertdialog">.
 // Content only: the modal host centres it, adds ModalBackdrop, traps focus and maps Escape to `cancel`.
-import { createButton } from "../button/button.js?v=556bc19251c3";
-import { createTextAction } from "../text-action/text-action.js?v=556bc19251c3";
+import { createButton } from "../button/button.js?v=aa3029620a48";
+import { createTextAction } from "../text-action/text-action.js?v=aa3029620a48";
 
 let uid = 0;
 
@@ -29,7 +29,8 @@ export function createAlert({ heading, message, confirm, cancel } = {}) {
   const cancelBtn = createTextAction({ label: cancel.label, onClick: cancel.onClick });
   cancelBtn.dataset.alertCancel = "";
   const actions = el("div", "ds-alert__actions");
-  actions.append(createButton({ label: confirm.label, width: "fill", onClick: confirm.onClick }), cancelBtn);
+  // Confirm is the secondary (quiet) Button: the consequence must not be the visually inviting choice.
+  actions.append(createButton({ label: confirm.label, variant: "secondary", width: "fill", onClick: confirm.onClick }), cancelBtn);
   root.append(text, actions);
   return root;
 }
