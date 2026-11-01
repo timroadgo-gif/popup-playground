@@ -1,8 +1,8 @@
 // GlassIconButton factory. createIconButton({ icon, ariaLabel, onClick }) → 44 × 44 circular <button> with the shared
 // native-inspired glass (GlassSurface) and the icon in the compact presentation (~15 viewport, optically fitted path,
 // 0.9px stroke). This file never styles glass or resizes icon geometry itself.
-import { createIcon } from "../../icons/icon.js?v=514a9345035d";
-import { applyGlass } from "../../glass/glass.js?v=514a9345035d";
+import { createIcon } from "../../icons/icon.js?v=39feac9d04b7";
+import { applyGlass } from "../../glass/glass.js?v=39feac9d04b7";
 
 const MATERIALS = ["glass-light"]; // IconButton / Glass / Light / 44 is the only approved variant
 

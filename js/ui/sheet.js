@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=514a9345035d";
-import { createIcon } from "../../design-system/icons/icon.js?v=514a9345035d";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=514a9345035d";
+import { createButton } from "../../design-system/components/button/button.js?v=39feac9d04b7";
+import { createIcon } from "../../design-system/icons/icon.js?v=39feac9d04b7";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=39feac9d04b7";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -37,12 +37,10 @@ export function sheet(...blocks) {
 // Popup headings never end with a period or comma (approved editorial rule, design-system/docs/typography.md).
 const clean = (t) => (t ? t.replace(/[.,]+$/u, "") : t);
 
-// Header: one primary heading per standard popup. Experiment «leading close»: close-button slot on top
-// ([data-close-slot]: the host puts the glass X there, or removes it when there is no X), then the heading;
-// text and extra follow at full width.
+// Header: one primary heading per standard popup. Close-button row on top ([data-close-slot]: the host puts the
+// glass X there, or removes it when there is no X), then the heading; text and extra follow at full width.
 // align "center" is the icon-led variant for sign-in gates.
-// layout (header lab, not a default): "close-leading" = Variant A, "close-trailing" = Variant B (css/sheet.css).
-export function head({ heading, text, extra, icon, badge, align = "start", layout }) {
+export function head({ heading, text, extra, icon, badge, align = "start" }) {
   const centered = align === "center";
   const h = heading ? node("h2", "ps__title ds-text-popup-heading", [clean(heading)]) : null;
   let top = h;
@@ -51,7 +49,7 @@ export function head({ heading, text, extra, icon, badge, align = "start", layou
     slot.dataset.closeSlot = "";
     top = node("div", "ps__header", [slot, h]);
   }
-  return node("div", `ps__head${centered ? " ps__head--centered" : ""}${layout ? ` ps__head--${layout}` : ""}`, [
+  return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
     icon ? contextIcon(icon, badge) : null,
     top,
     text ? textBlock(text) : null,

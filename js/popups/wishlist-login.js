@@ -1,5 +1,5 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=514a9345035d";
-import { createField } from "../../design-system/components/field/field.js?v=514a9345035d";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=39feac9d04b7";
+import { createField } from "../../design-system/components/field/field.js?v=39feac9d04b7";
 
 // Figma «Работа» 482:2594. Glass close button added on request (not in the Figma node).
 export default {

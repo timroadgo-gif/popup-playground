@@ -153,6 +153,7 @@
   --popup-sheet-form-action: var(--spacing-standard-block);
   --popup-sheet-close-size: 44px;
   --popup-sheet-close-inset: var(--spacing-standard-control);
+  --popup-sheet-close-heading: var(--spacing-standard-text-group);
   --glass-light-fill: rgba(255, 255, 255, 0.1);
   --glass-light-stroke-color: #b7b7b7;
   --glass-light-stroke-width: 0.5px;

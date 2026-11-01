@@ -1,8 +1,8 @@
 // Popup host: one popup at a time. Variants supply content and dismissal policy; the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=514a9345035d";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=514a9345035d";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=39feac9d04b7";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=39feac9d04b7";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -34,8 +34,8 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     panel.tabIndex = -1;
     scroll.append(variant.render(ctx));
     panel.append(scroll);
-    // Close button: in the header's leading slot above the heading when the sheet has one ([data-close-slot]);
-    // otherwise it floats top-leading (icon-led prompts). No X → the slot is removed.
+    // Close button: in the header's own top-trailing control row above the heading ([data-close-slot]);
+    // otherwise it floats top-trailing (icon-led prompts). No X → the slot is removed.
     const slot = scroll.querySelector("[data-close-slot]");
     if (dismiss.closeButton && slot) {
       slot.append(glassCloseButton(ctx.close));
