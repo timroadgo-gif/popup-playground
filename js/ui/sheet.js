@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=f2c669df3208";
-import { createIcon } from "../../design-system/icons/icon.js?v=f2c669df3208";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=f2c669df3208";
+import { createButton } from "../../design-system/components/button/button.js?v=2ddd93318b9b";
+import { createIcon } from "../../design-system/icons/icon.js?v=2ddd93318b9b";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=2ddd93318b9b";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
@@ -37,19 +37,19 @@ export function sheet(...blocks) {
 // Popup headings never end with a period or comma (approved editorial rule, design-system/docs/typography.md).
 const clean = (t) => (t ? t.replace(/[.,]+$/u, "") : t);
 
-// Header: one primary heading per standard popup. Close-button row on top ([data-close-slot]: the host puts the
-// glass X there, or removes it when there is no X), then the heading; text and extra follow at full width.
+// Header: one primary heading per popup. Close-button row on top in every popup ([data-close-slot]: the host puts
+// the glass X there, or removes it when there is no X), then the content group; text and extra at full width.
 // align "center" is the icon-led variant for sign-in gates.
 export function head({ heading, text, extra, icon, badge, align = "start" }) {
   const centered = align === "center";
   const h = heading ? node("h2", "ps__title ds-text-popup-heading", [clean(heading)]) : null;
-  let top = h;
-  if (!centered && h) {
-    const slot = node("div", "ps__close");
-    slot.dataset.closeSlot = "";
-    top = node("div", "ps__header", [slot, h]);
-  }
+  // Same close row in every popup: standard → inside .ps__header above the heading; icon-led → first in the
+  // centred group, above the icon.
+  const slot = node("div", "ps__close");
+  slot.dataset.closeSlot = "";
+  const top = !centered && h ? node("div", "ps__header", [slot, h]) : h;
   return node("div", `ps__head${centered ? " ps__head--centered" : ""}`, [
+    centered || !h ? slot : null,
     icon ? contextIcon(icon, badge) : null,
     top,
     text ? textBlock(text) : null,

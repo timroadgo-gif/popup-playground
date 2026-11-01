@@ -2,7 +2,7 @@
    Header: X control row (top-trailing) → heading → description, all full width — text never shares a row with the X.
    Type: heading 16/22 Regular (≤16) · description 12/17 Regular · meta 12/16 (text.popup-*).
    Rhythm: X (visible 32) at 16 from top/trailing · X region → heading 12 · heading → description 12 · icon → heading 12 · description → content 24 ·
-   fields 16 · consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides 24 · bottom 32 after actions, 56 after text (Figma 510:2838: ~60 above the heading, a bit less below the text). */
+   fields 16 · consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides 24 · bottom 56 below the final element in every popup (Figma 510:2838). */
 .ps {
   --ps-pad-top: var(--spacing-standard-block);
   display: flex;
@@ -10,7 +10,6 @@
   padding: var(--ps-pad-top) var(--popup-sheet-padding-inline) var(--popup-sheet-padding-bottom);
   color: var(--color-black-3);
 }
-.ps:not(:has(> .ps__actions)) { padding-bottom: var(--popup-sheet-padding-bottom-text); } /* ends in text: Figma 510:2838 balance */
 .ps p { margin: 0; }
 .ps > * + .ps__body { margin-top: var(--spacing-standard-block); }
 .ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }       /* message: description → actions 24 */
@@ -34,9 +33,10 @@
 }
 .ps__text { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); color: var(--color-black-3); } /* Figma: black-3 */
 
-/* Icon-led variant (sign-in gates): centred icon in the X band (24–60), heading and description below — one heading,
-   no reserved column needed because no text shares a row with the X. */
+/* Icon-led variant (sign-in gates): same X row as every popup; the centred content group (icon → heading →
+   description) starts one close→heading gap below it, like the heading of a standard popup. */
 .ps__head--centered { display: flex; flex-direction: column; align-items: center; gap: var(--popup-sheet-heading-description); text-align: center; }
+.ps__head--centered > .ps__close { margin-bottom: calc(var(--popup-sheet-close-heading) - var(--popup-sheet-heading-description)); }
 .ps__icon { position: relative; display: flex; margin-bottom: calc(var(--popup-sheet-icon-heading) - var(--popup-sheet-heading-description)); color: var(--color-black-3); }
 .ps__badge { position: absolute; top: -3.38px; left: 23.63px; width: 18px; height: 18px; display: grid; place-items: center; --corner-radius: 50%; background: rgba(255, 255, 255, 0.8); }
 
