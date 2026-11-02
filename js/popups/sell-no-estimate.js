@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=aa3029620a48";
+import { sheet, head, actions } from "../ui/sheet.js?v=06e89fac3a7d";
 
 // Figma «Работа» 497:4298. The explanation is ordinary description text on the sheet (no callout panel),
 // as in the Figma «Pop Up Текст» frames.
@@ -6,8 +6,8 @@ export default {
   id: "sell-no-estimate",
   kind: "sheet",
   title: "Не удалось рассчитать стоимость",
-  hint: "Figma 497:4298 · текст, две кнопки, Close",
-  pattern: "prompt",
+  hint: "Figma 497:4298 · текст, две кнопки",
+  category: "simple",
   render: ({ close }) => sheet(
     head({ heading: "К сожалению, мы не смогли рассчитать стоимость лота",
       text: "Сейчас у нас недостаточно данных для расчета цены. Заполните заявку на продажу и менеджер поможет определить размер выплаты." }),

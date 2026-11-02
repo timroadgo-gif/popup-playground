@@ -1,11 +1,11 @@
-// Popup host: one popup at a time. Variants supply content and a pattern (js/patterns.js → dismissal policy); the host owns
+// Popup host: one popup at a time. Variants supply content and a category (js/patterns.js → layout + dismissal); the host owns
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=aa3029620a48";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=aa3029620a48";
-import { createAlert } from "../design-system/components/alert/alert.js?v=aa3029620a48";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=aa3029620a48";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=06e89fac3a7d";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=06e89fac3a7d";
+import { createAlert } from "../design-system/components/alert/alert.js?v=06e89fac3a7d";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=06e89fac3a7d";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -28,7 +28,7 @@ export function createHost({ layer, background, getScale = () => 1 }) {
   function open(variant, trigger) {
     if (cur) return;
     const dismiss = dismissPolicy(variant);
-    const root = el(`popup popup--${variant.kind}${variant.layout ? ` popup--${variant.layout}` : ""}`);
+    const root = el(`popup popup--${variant.kind} popup--${variant.category}`);
     const panel = el("popup__panel ds-corner");
     const scroll = el("popup__scroll");
     const ctx = { close: () => close() };
@@ -43,18 +43,19 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     panel.tabIndex = -1;
     scroll.append(variant.render(ctx));
     panel.append(scroll);
-    // Close button: in the header's own top-trailing control row above the heading ([data-close-slot]);
-    // otherwise it floats top-trailing (icon-led prompts). No X → the slot is removed.
+    // Close button (form): in the header's own top-trailing control row above the heading ([data-close-slot]).
+    // Simple: the row is removed with its wrapper, so no space is left above the heading; a close button for
+    // keyboard and screen-reader users floats top-trailing and is shown only while it has keyboard focus.
     const slot = scroll.querySelector("[data-close-slot]");
     if (dismiss.closeButton && slot) {
       slot.append(glassCloseButton(dismissRequest));
     } else {
+      const header = slot?.closest(".ps__header");
       slot?.remove();
-      if (dismiss.closeButton) {
-        const bar = el("popup__toolbar");
-        bar.append(glassCloseButton(dismissRequest));
-        panel.append(bar);
-      }
+      header?.replaceWith(...header.childNodes);
+      const bar = el(`popup__toolbar${dismiss.closeButton ? "" : " popup__toolbar--focus-only"}`);
+      bar.append(glassCloseButton(dismissRequest));
+      panel.append(bar);
     }
     root.append(backdrop, panel);
     layer.append(root);

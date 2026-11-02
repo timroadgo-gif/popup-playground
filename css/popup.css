@@ -29,9 +29,11 @@
 .popup__scroll::-webkit-scrollbar { display: none; }
 
 
-/* Close control: glass X (IconButton / Glass / Light / 44), close-inset from the top and trailing edges; fixed while
-   content scrolls. Used only when the sheet has no header row for it (icon-led prompts, css/sheet.css). */
+/* Close control without a header row: glass X at the close inset from the top and trailing edges. In simple popups
+   it is focus-only — clipped away (no visible button, no layout space) until it receives keyboard focus, so
+   keyboard and screen-reader users can still close a popup that has no actions of its own. */
 .popup__toolbar { position: absolute; top: var(--popup-sheet-close-inset); right: var(--popup-sheet-close-inset); z-index: 2; }
+.popup__toolbar--focus-only:not(:focus-within) { clip-path: inset(50%); pointer-events: none; }
 
 /* Discard confirmation (design-system Alert) centred over the sheet; its nested backdrop adds no dimming and ignores taps. */
 .popup__alert { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; }

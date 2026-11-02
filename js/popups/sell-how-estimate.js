@@ -1,12 +1,12 @@
-import { sheet, head } from "../ui/sheet.js?v=aa3029620a48";
+import { sheet, head } from "../ui/sheet.js?v=06e89fac3a7d";
 
-// Figma «Работа» 497:4310. Text only; closes via Close, swipe, backdrop or Escape.
+// Figma «Работа» 497:4310. Text only, no actions: closes via backdrop, swipe or Escape.
 export default {
   id: "sell-how-estimate",
   kind: "sheet",
   title: "Как мы рассчитываем стоимость",
-  hint: "Figma 497:4310 · только текст, Close",
-  pattern: "info",
+  hint: "Figma 497:4310 · только текст",
+  category: "simple",
   render: () => sheet(
     head({ heading: "Как мы рассчитываем стоимость?", text: "Это примерная цена на основании статистики по лотам, размещенным на THE CULTT за последний год. Точную итоговую сумму выплаты мы согласуем вместе с вами после подачи заявки." }),
   ),
