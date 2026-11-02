@@ -21,7 +21,7 @@
 .popup--sheet.is-open .popup__panel { transform: translateY(0); }
 .popup--sheet.is-closing .popup__panel { transform: translateY(calc(100% + var(--sheet-inset) + 24px)); transition-duration: 0.38s; }
 .popup--sheet .popup__panel.is-dragging { transition: none; }
-/* Presentation full (natural height > 50 % of the screen, js/popup-host.js): full width, attached to the bottom edge,
+/* Presentation full (a form control, or natural height > 50 % of the screen, js/popup-host.js): full width, attached to the bottom edge,
    top corners only (data-corner-edges="top"); the bottom safe area is padding inside the sheet (css/sheet.css). */
 .popup--sheet.popup--full .popup__panel { left: 0; right: 0; bottom: 0; }
 @supports (corner-shape: superellipse(2)) { /* the shadow must follow the continuous shape */
@@ -37,6 +37,10 @@
    keyboard and screen-reader users can still close a popup that has no actions of its own. */
 .popup__toolbar { position: absolute; top: var(--popup-sheet-close-inset); right: var(--popup-sheet-close-inset); z-index: 2; }
 .popup__toolbar--focus-only:not(:focus-within) { clip-path: inset(50%); pointer-events: none; }
+
+/* Drag indicator (design-system DragIndicator), simple popups only: centred, fixed at the top while content scrolls,
+   inside the 32 top padding — no extra header height. */
+.popup__grabber { position: absolute; top: var(--drag-indicator-inset); left: 50%; transform: translateX(-50%); z-index: 1; }
 
 /* Discard confirmation (design-system Alert) centred over the sheet; its nested backdrop adds no dimming and ignores taps. */
 .popup__alert { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; }

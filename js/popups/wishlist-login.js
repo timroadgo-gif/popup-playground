@@ -1,8 +1,8 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=59d552d65340";
-import { createField } from "../../design-system/components/field/field.js?v=59d552d65340";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=a4df8b32311b";
+import { createField } from "../../design-system/components/field/field.js?v=a4df8b32311b";
 
-// Figma «Работа» 482:2594. Simple despite the email field: one field, same sign-in gate as cart-login
-// (no close button, as in the Figma node). Entered email is still protected by the discard guard.
+// Figma «Работа» 482:2594. Simple despite the email field: one field, same sign-in gate as cart-login → drag indicator, no close
+// button (as in the Figma node). The field makes it a full sheet; entered email is protected by the discard guard.
 export default {
   id: "wishlist-login",
   kind: "sheet",

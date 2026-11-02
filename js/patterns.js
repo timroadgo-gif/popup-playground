@@ -1,16 +1,20 @@
-// Popup categories → layout and default dismissal policy (approved 2026-11-02). Two categories only:
-//   simple — information, explanations, confirmations, prompts with at most one simple field. No close button and
-//            no close-button row; equal top and bottom padding (css/sheet.css). Dismissed by its own actions,
-//            backdrop tap, swipe or Escape; a keyboard-only close button appears only when it has keyboard focus.
-//   form   — substantial data entry (two or more inputs). Top-right glass close button in its own row, heading
-//            below it, 56 at the bottom.
+// Popup interaction categories → dismissal control and policy (approved 2026-11-02). Three separate concerns:
+//   content      — information / confirmation / form (what the popup says; documented per popup)
+//   presentation — compact floating card or full bottom sheet; chosen by the host from the content itself
+//                  (any form control, or natural height > 50 % of the screen → full), never set per popup
+//   dismissal    — this table, by interaction complexity:
+//     simple — information, alerts, confirmations, one simple field or toggle. Drag indicator, no close button;
+//              dismissed by swipe, backdrop, Escape or its own actions; a keyboard / screen-reader close button
+//              appears only while it has keyboard focus.
+//     form   — substantial multi-field input with data to lose. Top-right glass close button in its own row,
+//              heading below it, 56 at the bottom; no drag indicator (swipe still works and is guarded).
 // `guard`: once the user has changed a field, X / swipe / backdrop / Escape ask before discarding it (alert below);
 // the popup's own buttons (Continue, "without e-mail", links) close directly — they are deliberate choices.
 // A popup with no fields is never guarded in practice (nothing can change). A popup may pass its own `dismiss`
 // to override a row, with a comment explaining why.
 export const CATEGORIES = {
-  simple: { closeButton: false, swipe: true, backdrop: true, escape: true, guard: true },
-  form: { closeButton: true, swipe: true, backdrop: true, escape: true, guard: true },
+  simple: { closeButton: false, indicator: true, swipe: true, backdrop: true, escape: true, guard: true },
+  form: { closeButton: true, indicator: false, swipe: true, backdrop: true, escape: true, guard: true },
 };
 
 // Discard confirmation (design-system Alert). Copy is a draft pending approval.

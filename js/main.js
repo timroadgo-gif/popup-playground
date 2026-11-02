@@ -1,5 +1,5 @@
-import { categories } from "./registry.js?v=59d552d65340";
-import { createHost } from "./popup-host.js?v=59d552d65340";
+import { categories } from "./registry.js?v=a4df8b32311b";
+import { createHost } from "./popup-host.js?v=a4df8b32311b";
 
 const device = document.getElementById("device");
 const app = document.getElementById("app");

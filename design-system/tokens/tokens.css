@@ -231,4 +231,8 @@
   --alert-action-gap: var(--spacing-compact-inline);
   --alert-background: var(--color-white);
   --alert-foreground: var(--color-black-3);
+  --drag-indicator-width: 36px;
+  --drag-indicator-height: 4px;
+  --drag-indicator-inset: var(--spacing-compact-inline);
+  --drag-indicator-color: rgba(17, 17, 17, 0.16);
 }

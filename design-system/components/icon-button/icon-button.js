@@ -2,8 +2,8 @@
 // native-inspired glass (GlassSurface) and the icon in the compact presentation (~15 viewport, optically fitted path,
 // 0.9px stroke). size "compact": the glass circle shrinks to 32 (secondary controls such as a popup close) while the
 // <button> keeps the 44 × 44 hit area around it. This file never styles glass or resizes icon geometry itself.
-import { createIcon } from "../../icons/icon.js?v=59d552d65340";
-import { applyGlass } from "../../glass/glass.js?v=59d552d65340";
+import { createIcon } from "../../icons/icon.js?v=a4df8b32311b";
+import { applyGlass } from "../../glass/glass.js?v=a4df8b32311b";
 
 const MATERIALS = ["glass-light"]; // IconButton / Glass / Light / 44 is the only approved variant
 
