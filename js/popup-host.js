@@ -2,18 +2,24 @@
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=a4df8b32311b";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=a4df8b32311b";
-import { createAlert } from "../design-system/components/alert/alert.js?v=a4df8b32311b";
-import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=a4df8b32311b";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=a4df8b32311b";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=0e4bd01ded85";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=0e4bd01ded85";
+import { createAlert } from "../design-system/components/alert/alert.js?v=0e4bd01ded85";
+import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=0e4bd01ded85";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=0e4bd01ded85";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
 const SWIPE_KINDS = new Set(["sheet"]);
-const FULL_SHEET_RATIO = 0.5; // natural height above half the screen → full-width bottom-attached sheet
-// Form controls (not action buttons): any of them makes the popup a full bottom sheet.
-const FORM_CONTROLS = 'input,textarea,select,[role="switch"],[role="radio"],[role="combobox"],[aria-haspopup="listbox"]';
+const FULL_SHEET_RATIO = 0.5; // popups without form controls: natural height above half the screen → full sheet
+// Data-entry controls (not action buttons): one is enough to make the popup a full bottom sheet — no field count,
+// no length rule. Button-type inputs are actions, not data entry.
+const FORM_CONTROLS = [
+  'input:not([type="hidden"],[type="button"],[type="submit"],[type="reset"],[type="image"])',
+  "textarea", "select", "[contenteditable]:not([contenteditable=\"false\"])",
+  '[role="textbox"]', '[role="checkbox"]', '[role="switch"]', '[role="radio"]', '[role="slider"]', '[role="spinbutton"]',
+  '[role="combobox"]', '[role="listbox"]', '[aria-haspopup="listbox"]',
+].join(",");
 
 const FIELDS = "input,textarea,select";
 
@@ -69,13 +75,18 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     }
     root.append(backdrop, panel);
     layer.append(root);
-    // Presentation (separate from the category): full sheet when the popup has a form control, or when the panel's
-    // natural height — header, text, fields, actions and padding, measured unconstrained at the compact width —
-    // exceeds half the screen; otherwise a compact floating card. Decided once per open against the popup layer
-    // (the screen, not the visual viewport), so the keyboard opening later never switches the mode.
-    panel.style.maxHeight = "none";
-    const full = !!scroll.querySelector(FORM_CONTROLS) || panel.offsetHeight > layer.offsetHeight * FULL_SHEET_RATIO;
-    panel.style.maxHeight = "";
+    // Presentation (separate from the category and from dismissal): a form control → always a full sheet, whatever the
+    // field count or content length. No form control → compact floating card, unless the panel's natural height
+    // (measured unconstrained at the compact width) exceeds half the screen — the approved rule for long content.
+    // Decided once per open against the popup layer (the screen, not the visual viewport), so the keyboard opening
+    // later never switches the mode.
+    const hasForm = !!scroll.querySelector(FORM_CONTROLS);
+    let full = hasForm;
+    if (!hasForm) {
+      panel.style.maxHeight = "none";
+      full = panel.offsetHeight > layer.offsetHeight * FULL_SHEET_RATIO;
+      panel.style.maxHeight = "";
+    }
     root.classList.add(full ? "popup--full" : "popup--compact");
     if (full) panel.dataset.cornerEdges = "top";
     background.forEach((n) => (n.inert = true));

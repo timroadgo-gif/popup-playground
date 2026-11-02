@@ -1,7 +1,8 @@
 // Popup interaction categories → dismissal control and policy (approved 2026-11-02). Three separate concerns:
 //   content      — information / confirmation / form (what the popup says; documented per popup)
 //   presentation — compact floating card or full bottom sheet; chosen by the host from the content itself
-//                  (any form control, or natural height > 50 % of the screen → full), never set per popup
+//                  (any form control — one is enough → full; otherwise natural height > 50 % of the screen → full),
+//                  never set per popup and never derived from the category below
 //   dismissal    — this table, by interaction complexity:
 //     simple — information, alerts, confirmations, one simple field or toggle. Drag indicator, no close button;
 //              dismissed by swipe, backdrop, Escape or its own actions; a keyboard / screen-reader close button
