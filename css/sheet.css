@@ -6,12 +6,15 @@
    fields 16 · consents 12 · message → actions 24 · form → actions 32 · primary → text action 8 · sides 24 · form: bottom 56 below the final element (Figma 510:2838). */
 .ps {
   --ps-pad-top: var(--spacing-standard-block);
+  --ps-pad-bottom: var(--popup-sheet-padding-bottom);
+  --ps-safe-bottom: 0px;
   display: flex;
   flex-direction: column;
-  padding: var(--ps-pad-top) var(--popup-sheet-padding-inline) var(--popup-sheet-padding-bottom);
+  padding: var(--ps-pad-top) var(--popup-sheet-padding-inline) calc(var(--ps-pad-bottom) + var(--ps-safe-bottom));
   color: var(--color-black-3);
 }
-.popup--simple .ps { --ps-pad-top: var(--popup-sheet-simple-padding-block); padding-bottom: var(--popup-sheet-simple-padding-block); }
+.popup--simple .ps { --ps-pad-top: var(--popup-sheet-simple-padding-block); --ps-pad-bottom: var(--popup-sheet-simple-padding-block); }
+.popup--full .ps { --ps-safe-bottom: var(--safe-bottom); } /* full sheet reaches the screen edge: content clears the home indicator */
 .ps p { margin: 0; }
 .ps > * + .ps__body { margin-top: var(--spacing-standard-block); }
 .ps > * + .ps__actions { margin-top: var(--popup-sheet-form-action); }       /* message: description → actions 24 */

@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=06e89fac3a7d";
+import { sheet, head, actions } from "../ui/sheet.js?v=59d552d65340";
 
 // Figma «Работа» 497:3952. Simple: message + one action, no close button (as in the Figma node).
 export default {

@@ -2,14 +2,15 @@
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=06e89fac3a7d";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=06e89fac3a7d";
-import { createAlert } from "../design-system/components/alert/alert.js?v=06e89fac3a7d";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=06e89fac3a7d";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=59d552d65340";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=59d552d65340";
+import { createAlert } from "../design-system/components/alert/alert.js?v=59d552d65340";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=59d552d65340";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
 const SWIPE_KINDS = new Set(["sheet"]);
+const FULL_SHEET_RATIO = 0.5; // natural height above half the screen → full-width bottom-attached sheet
 
 const FIELDS = "input,textarea,select";
 
@@ -59,6 +60,15 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     }
     root.append(backdrop, panel);
     layer.append(root);
+    // Presentation (separate from the category): compact floating card, or full sheet when the panel's natural
+    // height — header, text, fields, actions and padding, measured unconstrained at the compact width — exceeds half
+    // the screen. Measured once per open against the popup layer (the screen, not the visual viewport), so the
+    // keyboard opening later never switches the mode.
+    panel.style.maxHeight = "none";
+    const full = panel.offsetHeight > layer.offsetHeight * FULL_SHEET_RATIO;
+    panel.style.maxHeight = "";
+    root.classList.add(full ? "popup--full" : "popup--compact");
+    if (full) panel.dataset.cornerEdges = "top";
     background.forEach((n) => (n.inert = true));
 
     cur = { root, backdrop, panel, scroll, variant, trigger, dismiss, initial: snapshot(scroll), alert: null, closing: false };

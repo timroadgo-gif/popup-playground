@@ -21,6 +21,9 @@
 .popup--sheet.is-open .popup__panel { transform: translateY(0); }
 .popup--sheet.is-closing .popup__panel { transform: translateY(calc(100% + var(--sheet-inset) + 24px)); transition-duration: 0.38s; }
 .popup--sheet .popup__panel.is-dragging { transition: none; }
+/* Presentation full (natural height > 50 % of the screen, js/popup-host.js): full width, attached to the bottom edge,
+   top corners only (data-corner-edges="top"); the bottom safe area is padding inside the sheet (css/sheet.css). */
+.popup--sheet.popup--full .popup__panel { left: 0; right: 0; bottom: 0; }
 @supports (corner-shape: superellipse(2)) { /* the shadow must follow the continuous shape */
   .popup--sheet .popup__panel { box-shadow: 0 0 36px rgba(0, 0, 0, 0.1); }
 }

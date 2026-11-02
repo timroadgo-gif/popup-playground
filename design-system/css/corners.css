@@ -20,3 +20,5 @@
 @supports not (corner-shape: superellipse(2)) {
   .ds-corner[data-corner="sharp"] { border-radius: 0; }
 }
+/* Edge-attached surfaces (e.g. a full-width bottom sheet): round only the top corners, keep the shape. */
+.ds-corner[data-corner-edges="top"] { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
