@@ -1,6 +1,6 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=0e4bd01ded85";
-import { createField } from "../../design-system/components/field/field.js?v=0e4bd01ded85";
-import { createAccountNotice } from "../../design-system/components/account-notice/account-notice.js?v=0e4bd01ded85";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=8171b96202d0";
+import { createField } from "../../design-system/components/field/field.js?v=8171b96202d0";
+import { createAccountNotice } from "../../design-system/components/account-notice/account-notice.js?v=8171b96202d0";
 
 // Figma «Работа» 497:4011. Dropdown option lists are not defined in the source, so the selects open nothing.
 export default {

@@ -1,5 +1,5 @@
 // Field factory (Figma «Input Form»). createField({ kind: "text" | "select", label, placeholder, ... }) → element.
-import { createIcon } from "../../icons/icon.js?v=0e4bd01ded85";
+import { createIcon } from "../../icons/icon.js?v=8171b96202d0";
 
 const KINDS = ["text", "select"];
 

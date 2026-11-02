@@ -52,3 +52,9 @@
 .ps__list li > span { width: 24px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
 .ps__actions { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); }
+/* Bottom padding is measured from the last *visible* edge: a Button's fill, or a TextAction's text line. A trailing
+   TextAction's 44 hit area extends (44 − 20) / 2 = 12 below its text; that invisible half overlaps the bottom padding
+   instead of adding to it (the hit area itself is unchanged). */
+.ps > .ps__actions:last-child > .ds-text-action:last-child {
+  margin-bottom: calc((var(--text-body-line-height) - var(--text-action-min-height)) / 2);
+}
