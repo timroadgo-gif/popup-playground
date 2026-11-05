@@ -6,7 +6,7 @@
 // ?glass=flat the CSS material in css/glass.css stays on its own.
 // Preset values come from tokens (glass.<material>.lens.*); there are no per-call shader settings.
 
-import liquidGL from "./vendor/liquidGL.js?v=3a00af58f59e";
+import liquidGL from "./vendor/liquidGL.js?v=91ea25ebb40d";
 
 export const PRESETS = ["light"]; // one preset per approved material
 
@@ -142,15 +142,16 @@ function watch() {
   sweeper.observe(document.body, { childList: true, subtree: true });
 }
 
-// Re-snapshot when a transition ends on something that carries a lens (a sheet finished sliding in, a drag snapped
-// back): the snapshot was taken mid-motion. One listener for all lenses.
+// Re-snapshot when a transition ends: the renderer recaptures on DOM mutations (≈250 ms throttle), i.e. usually while
+// the motion is still running, so the lens would keep a mid-motion frame. Two cases: something that carries a lens
+// finished moving (a sheet slid in, a drag snapped back), or content under the lenses finished moving (a gallery slide,
+// a reveal). Transitions inside a glass control (press feedback) are skipped. One debounced listener for all lenses.
 let pending = null;
 document.addEventListener("transitionend", (e) => {
-  if (pending || !live.size) return;
-  const hit = [...live.entries()].filter(([el, lens]) => lens && e.target.contains?.(el));
-  if (!hit.length) return;
-  pending = requestAnimationFrame(() => {
+  if (!live.size || e.target.closest?.(".ds-glass")) return;
+  clearTimeout(pending);
+  pending = setTimeout(() => {
     pending = null;
-    for (const r of new Set(hit.map(([, lens]) => lens.renderer))) r?.captureSnapshot?.();
-  });
+    for (const r of new Set([...live.values()].map((lens) => lens?.renderer))) r?.captureSnapshot?.();
+  }, 60);
 }, true);

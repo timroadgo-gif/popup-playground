@@ -1,6 +1,6 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=3a00af58f59e";
-import { createField } from "../../design-system/components/field/field.js?v=3a00af58f59e";
-import { createCheckbox } from "../../design-system/components/checkbox/checkbox.js?v=3a00af58f59e";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=91ea25ebb40d";
+import { createField } from "../../design-system/components/field/field.js?v=91ea25ebb40d";
+import { createCheckbox } from "../../design-system/components/checkbox/checkbox.js?v=91ea25ebb40d";
 
 // Figma «Работа» 497:4279. Form: email + two consents (the category's close button is not in the Figma node); checkbox defaults as in the source
 // (offer unchecked, newsletter checked). The source defines no validation, so none is added.

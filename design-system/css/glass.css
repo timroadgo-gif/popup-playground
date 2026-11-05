@@ -83,8 +83,12 @@
 /* Self-anchored: the canvas is inside the surface, above its own background, so the fill (incl. pressed) moves to the
    lens layer above the canvas and the CSS backdrop (now hidden behind the canvas) is dropped. Shared: the canvas is
    behind the surface, so its background, frost and saturation apply to the refracted image as they did to the page. */
-.ds-glass[data-lens="self"][data-lens-live] { -webkit-backdrop-filter: none; backdrop-filter: none; }
-.ds-glass[data-lens="self"][data-lens-live] > .ds-glass__lens { background: var(--_fill) !important; }
+.ds-glass[data-lens="self"][data-lens-live]:not([data-glass-backdrop="solid"] *) { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.ds-glass[data-lens="self"][data-lens-live]:not([data-glass-backdrop="solid"] *) > .ds-glass__lens { background: var(--_fill) !important; }
+/* Over an opaque backdrop (e.g. a navigation bar that turns solid on scroll) the renderer, which snapshots only the
+   page below, would show the content the bar hides. A container marked [data-glass-backdrop="solid"] keeps its glass
+   controls on the CSS material: canvas hidden, CSS backdrop and fill back. Toggle the attribute with the bar. */
+[data-glass-backdrop="solid"] .ds-glass > canvas { visibility: hidden !important; } /* the renderer sets inline visibility */
 /* Shared lens layer: every glass surface inside renders on one canvas anchored here. <body> needs nothing; any other
    container becomes sticky (= relative layout, so use it only on static / relative containers). */
 [data-glass-layer]:not(body) { position: sticky; }
