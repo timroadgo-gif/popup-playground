@@ -6,8 +6,8 @@
    Shape     : data-shape = circle | pill | rounded. circle/pill are true circles/capsules (no superellipse);
                rounded uses the shared continuous geometry (.ds-corner + --corner-radius from the component).
    Dimensions, content and interaction belong to the component.
-   Layers (back → front), each an approximation of a native layer: backdrop (frost + saturation, + edge lensing in
-   Chromium via glass.js) → fill → inner light (shade bottom; overlay-blended light top) → hairline edge with
+   Layers (back → front), each an approximation of a native layer: lens (real refraction, glass/engine.js) → backdrop
+   (frost + saturation) → fill → inner light (shade bottom; overlay-blended light top) → hairline edge with
    angle-dependent specular light → content. Limits: docs/glass.md. */
 
 .ds-glass {
@@ -70,6 +70,24 @@
 
 /* Content sits above the material layers. */
 .ds-glass > * { position: relative; z-index: 2; }
+
+/* Lens layer (glass/glass.js): an empty layer filling the surface. The Liquid Glass engine (glass/engine.js) draws the
+   refracted backdrop for it on a shared canvas beneath the surface; the material layers above stay unchanged. */
+.ds-glass > .ds-glass__lens { position: absolute; inset: 0; z-index: auto; border-radius: inherit; pointer-events: none; }
+/* While the engine renders a lens the surface sits above what it refracts (z-index; the renderer snapshots only lower
+   content). Self-anchored ("self" = no glass layer): sticky without offsets (= relative layout) is what the
+   renderer anchors its canvas to, and overflow clips that canvas to the shape. Once live, the CSS backdrop is
+   redundant (the canvas covers it). */
+.ds-glass[data-lens] { z-index: var(--glass-lens-z-index); }
+.ds-glass[data-lens="self"] { position: sticky; overflow: hidden; }
+/* Self-anchored: the canvas is inside the surface, above its own background, so the fill (incl. pressed) moves to the
+   lens layer above the canvas and the CSS backdrop (now hidden behind the canvas) is dropped. Shared: the canvas is
+   behind the surface, so its background, frost and saturation apply to the refracted image as they did to the page. */
+.ds-glass[data-lens="self"][data-lens-live] { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.ds-glass[data-lens="self"][data-lens-live] > .ds-glass__lens { background: var(--_fill) !important; }
+/* Shared lens layer: every glass surface inside renders on one canvas anchored here. <body> needs nothing; any other
+   container becomes sticky (= relative layout, so use it only on static / relative containers). */
+[data-glass-layer]:not(body) { position: sticky; }
 
 /* Accessibility: reduced transparency → nearly opaque surface; same silhouette and border. */
 @media (prefers-reduced-transparency: reduce) {

@@ -169,9 +169,13 @@
   --glass-light-saturation: 1.4;
   --glass-light-pressed-fill: rgba(255, 255, 255, 0.22);
   --glass-light-pressed-scale: 0.94;
-  --glass-light-refraction-depth: 6px;
-  --glass-light-refraction-scale: 6;
   --glass-light-reduced-transparency-fill: rgba(250, 250, 250, 0.96);
+  --glass-light-lens-refraction: 1.5px;
+  --glass-light-lens-edge-offset: 6px;
+  --glass-light-lens-bevel-width: 0.22;
+  --glass-light-lens-magnify: 1;
+  --glass-light-lens-resolution: 2;
+  --glass-lens-z-index: 1000;
   --icon-button-glass-size: 44px;
   --icon-button-glass-icon-viewport: var(--icon-presentation-compact-viewport);
   --icon-button-glass-foreground: var(--color-ink);

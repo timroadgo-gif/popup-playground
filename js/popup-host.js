@@ -2,11 +2,11 @@
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=ec363bd45e67";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=ec363bd45e67";
-import { createAlert } from "../design-system/components/alert/alert.js?v=ec363bd45e67";
-import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=ec363bd45e67";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=ec363bd45e67";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=8a85c6bb3de7";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=8a85c6bb3de7";
+import { createAlert } from "../design-system/components/alert/alert.js?v=8a85c6bb3de7";
+import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=8a85c6bb3de7";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=8a85c6bb3de7";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -28,8 +28,9 @@ const el = (cls) => Object.assign(document.createElement("div"), { className: cl
 const snapshot = (root) => JSON.stringify([...root.querySelectorAll(FIELDS)].map((f) => (f.type === "checkbox" || f.type === "radio" ? f.checked : f.value)));
 
 // Close control = shared IconButton / Glass / Light, compact: secondary 32 glass circle, 44 × 44 hit area.
-export function glassCloseButton(onClick) {
-  return createIconButton({ icon: "close", ariaLabel: "Закрыть", size: "compact", onClick });
+// refraction: false for the focus-only X — it is not painted until focused, so it holds no GPU lens.
+export function glassCloseButton(onClick, { refraction = true } = {}) {
+  return createIconButton({ icon: "close", ariaLabel: "Закрыть", size: "compact", refraction, onClick });
 }
 
 export function createHost({ layer, background, getScale = () => 1 }) {
@@ -64,7 +65,7 @@ export function createHost({ layer, background, getScale = () => 1 }) {
       slot?.remove();
       header?.replaceWith(...header.childNodes);
       const bar = el(`popup__toolbar${dismiss.closeButton ? "" : " popup__toolbar--focus-only"}`);
-      bar.append(glassCloseButton(dismissRequest));
+      bar.append(glassCloseButton(dismissRequest, { refraction: dismiss.closeButton }));
       panel.append(bar);
     }
     // Simple interactions: drag indicator, centred at the top inside the top padding; it marks the real swipe gesture.
