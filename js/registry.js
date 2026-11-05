@@ -1,14 +1,14 @@
 // Add, change or remove a popup: edit this list. Each variant lives in js/popups/<id>.js.
 // Grouped by product flow so the list stays readable as it grows.
-import infoSheet from "./popups/info-sheet.js?v=c01fb93c6d45";
-import wishlistLogin from "./popups/wishlist-login.js?v=c01fb93c6d45";
-import cartLogin from "./popups/cart-login.js?v=c01fb93c6d45";
-import waitlistSubscribe from "./popups/waitlist-subscribe.js?v=c01fb93c6d45";
-import sellHowEstimate from "./popups/sell-how-estimate.js?v=c01fb93c6d45";
-import sellNoEstimate from "./popups/sell-no-estimate.js?v=c01fb93c6d45";
-import sellInsider from "./popups/sell-insider.js?v=c01fb93c6d45";
-import sellTelegram from "./popups/sell-telegram.js?v=c01fb93c6d45";
-import sellThanks from "./popups/sell-thanks.js?v=c01fb93c6d45";
+import infoSheet from "./popups/info-sheet.js?v=18b7047c1ffa";
+import wishlistLogin from "./popups/wishlist-login.js?v=18b7047c1ffa";
+import cartLogin from "./popups/cart-login.js?v=18b7047c1ffa";
+import waitlistSubscribe from "./popups/waitlist-subscribe.js?v=18b7047c1ffa";
+import sellHowEstimate from "./popups/sell-how-estimate.js?v=18b7047c1ffa";
+import sellNoEstimate from "./popups/sell-no-estimate.js?v=18b7047c1ffa";
+import sellInsider from "./popups/sell-insider.js?v=18b7047c1ffa";
+import sellTelegram from "./popups/sell-telegram.js?v=18b7047c1ffa";
+import sellThanks from "./popups/sell-thanks.js?v=18b7047c1ffa";
 
 export const categories = [
   { id: "auth", title: "Вход", variants: [wishlistLogin, cartLogin] },

@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=c01fb93c6d45";
+import { sheet, head, actions } from "../ui/sheet.js?v=18b7047c1ffa";
 
 // Figma «Работа» 497:3952. Simple: message + one action → drag indicator, no close button (as in the Figma node).
 export default {
