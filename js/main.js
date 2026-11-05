@@ -1,5 +1,6 @@
-import { categories } from "./registry.js?v=8171b96202d0";
-import { createHost } from "./popup-host.js?v=8171b96202d0";
+import { categories } from "./registry.js?v=ec363bd45e67";
+import { createHost } from "./popup-host.js?v=ec363bd45e67";
+import { createIcon } from "../design-system/icons/icon.js?v=ec363bd45e67";
 
 const device = document.getElementById("device");
 const app = document.getElementById("app");
@@ -19,7 +20,6 @@ const host = createHost({
   getScale: () => scale,
 });
 
-const chevron = '<svg viewBox="0 0 8 14" aria-hidden="true"><path d="M1 1l6 6-6 6"/></svg>';
 let n = 0;
 
 app.innerHTML = `
@@ -37,7 +37,8 @@ for (const cat of categories) {
     const li = document.createElement("li");
     li.innerHTML = `<button class="row" type="button" data-variant="${v.id}">
       <span class="row__n ds-text-caption">${String(++n).padStart(2, "0")}</span>
-      <span class="row__t"><span class="row__title ds-text-body">${v.title}</span><span class="row__hint ds-text-caption">${v.hint}</span></span>${chevron}</button>`;
+      <span class="row__t"><span class="row__title ds-text-body">${v.title}</span><span class="row__hint ds-text-caption">${v.hint}</span></span></button>`;
+    li.firstElementChild.append(createIcon("chevron-right")); // disclosure, decorative (aria-hidden)
     li.firstElementChild.addEventListener("click", (e) => host.open(v, e.currentTarget));
     ul.append(li);
   }

@@ -53,4 +53,4 @@ button { background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-h
 .row__t { flex: 1; min-width: 0; }
 .row__title { display: block; }
 .row__hint { display: block; margin-top: var(--spacing-compact-stack); color: var(--ink-3); }
-.row svg { width: 8px; height: 14px; stroke: var(--ink); fill: none; stroke-width: 1.1; }
+.row .ds-icon { color: var(--ink); } /* chevron-right from the icon library, 24 box */
