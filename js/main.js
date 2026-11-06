@@ -1,6 +1,6 @@
-import { categories } from "./registry.js?v=18b7047c1ffa";
-import { createHost } from "./popup-host.js?v=18b7047c1ffa";
-import { createIcon } from "../design-system/icons/icon.js?v=18b7047c1ffa";
+import { categories } from "./registry.js?v=61a72d0f7a99";
+import { createHost } from "./popup-host.js?v=61a72d0f7a99";
+import { createIcon } from "../design-system/icons/icon.js?v=61a72d0f7a99";
 
 const device = document.getElementById("device");
 const app = document.getElementById("app");
