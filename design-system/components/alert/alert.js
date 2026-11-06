@@ -1,7 +1,7 @@
 // Alert factory (confirmation of an urgent decision). createAlert({ heading, message, confirm, cancel }) → <div role="alertdialog">.
 // Content only: the modal host centres it, adds ModalBackdrop, traps focus and maps Escape to `cancel`.
-import { createButton } from "../button/button.js?v=61a72d0f7a99";
-import { createTextAction } from "../text-action/text-action.js?v=61a72d0f7a99";
+import { createButton } from "../button/button.js?v=b876e066d8e1";
+import { createTextAction } from "../text-action/text-action.js?v=b876e066d8e1";
 
 let uid = 0;
 

@@ -1,5 +1,5 @@
-import { sheet, head, body, actions } from "../ui/sheet.js?v=61a72d0f7a99";
-import { createField } from "../../design-system/components/field/field.js?v=61a72d0f7a99";
+import { sheet, head, body, actions } from "../ui/sheet.js?v=b876e066d8e1";
+import { createField } from "../../design-system/components/field/field.js?v=b876e066d8e1";
 
 // Figma «Работа» 482:2594. Simple despite the email field: one field, same sign-in gate as cart-login → drag indicator, no close
 // button (as in the Figma node). The field makes it a full sheet; entered email is protected by the discard guard.

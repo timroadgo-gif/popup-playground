@@ -2,11 +2,11 @@
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=61a72d0f7a99";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=61a72d0f7a99";
-import { createAlert } from "../design-system/components/alert/alert.js?v=61a72d0f7a99";
-import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=61a72d0f7a99";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=61a72d0f7a99";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=b876e066d8e1";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=b876e066d8e1";
+import { createAlert } from "../design-system/components/alert/alert.js?v=b876e066d8e1";
+import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=b876e066d8e1";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=b876e066d8e1";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -33,6 +33,8 @@ export function glassCloseButton(onClick, { refraction = true } = {}) {
   return createIconButton({ icon: "close", ariaLabel: "Закрыть", size: "compact", refraction, onClick });
 }
 
+let surfaceSeq = 0;
+
 export function createHost({ layer, background, getScale = () => 1 }) {
   let cur = null;
 
@@ -54,6 +56,12 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     panel.tabIndex = -1;
     scroll.append(variant.render(ctx));
     panel.append(scroll);
+    // Glass controls refract the popup's own content, not the page: the snapshot rasteriser does not support
+    // corner-shape, so a page snapshot draws the panel's continuous top corners as a much larger circular radius and
+    // the close/back lenses near them bent the dimmed page "outside" that circle into their rims. The scroll area has
+    // no corner of its own, so the lens only ever sees the white surface it sits on (docs/glass.md → pinned source).
+    scroll.id = `popup-surface-${++surfaceSeq}`;
+    panel.dataset.glassSource = `#${scroll.id}`;
     // Close button (form): in the header's own top-trailing control row above the heading ([data-close-slot]).
     // Simple: the row is removed with its wrapper, so no space is left above the heading; a close button for
     // keyboard and screen-reader users floats top-trailing and is shown only while it has keyboard focus.

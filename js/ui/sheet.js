@@ -1,8 +1,8 @@
 // Popup sheet skeleton blocks (css/sheet.css). Popups compose these instead of writing their own layout.
 // Text arrives as given by the source design; nothing here rewrites or adds copy.
-import { createButton } from "../../design-system/components/button/button.js?v=61a72d0f7a99";
-import { createIcon } from "../../design-system/icons/icon.js?v=61a72d0f7a99";
-import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=61a72d0f7a99";
+import { createButton } from "../../design-system/components/button/button.js?v=b876e066d8e1";
+import { createIcon } from "../../design-system/icons/icon.js?v=b876e066d8e1";
+import { createTextAction } from "../../design-system/components/text-action/text-action.js?v=b876e066d8e1";
 
 export function node(tag, className, children = []) {
   const n = document.createElement(tag);
