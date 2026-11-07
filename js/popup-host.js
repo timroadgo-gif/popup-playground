@@ -2,11 +2,11 @@
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=df7fff2baa0a";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=df7fff2baa0a";
-import { createAlert } from "../design-system/components/alert/alert.js?v=df7fff2baa0a";
-import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=df7fff2baa0a";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=df7fff2baa0a";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=5f758c49d6c8";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=5f758c49d6c8";
+import { createAlert } from "../design-system/components/alert/alert.js?v=5f758c49d6c8";
+import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=5f758c49d6c8";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=5f758c49d6c8";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -104,8 +104,18 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     root.addEventListener("keydown", (e) => onKey(e, dismiss));
     if (dismiss.swipe && SWIPE_KINDS.has(variant.kind)) attachSwipe(cur);
 
+    // Split layout: content that marks its own scroll region(s) with [data-popup-scroll] keeps a fixed header
+    // (controls, heading, search) and scrolls only that region; the shell itself never scrolls, so the X, the
+    // heading and the panel's corners stay put (css/popup.css). Otherwise the whole content scrolls as before.
+    if (scroll.querySelector("[data-popup-scroll]")) scroll.classList.add("popup__scroll--split");
     // Allow native scroll only when content overflows; otherwise the whole panel is a drag handle.
-    if (scroll.scrollHeight > scroll.clientHeight) scroll.style.touchAction = "pan-y";
+    else if (scroll.scrollHeight > scroll.clientHeight) scroll.style.touchAction = "pan-y";
+    // Virtual keyboard (iOS Safari keeps the layout viewport, so fixed content ends up under the keyboard):
+    // expose its height as --popup-keyboard so scroll regions can pad their end and stay reachable.
+    const vv = window.visualViewport;
+    const onViewport = () => layer.style.setProperty("--popup-keyboard", `${Math.max(0, Math.round(innerHeight - vv.height - vv.offsetTop))}px`);
+    if (vv) { vv.addEventListener("resize", onViewport); vv.addEventListener("scroll", onViewport); onViewport(); }
+    cur.offViewport = () => { if (vv) { vv.removeEventListener("resize", onViewport); vv.removeEventListener("scroll", onViewport); } layer.style.removeProperty("--popup-keyboard"); };
 
     openBackdrop(backdrop);
     requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add("is-open")));
@@ -172,6 +182,7 @@ export function createHost({ layer, background, getScale = () => 1 }) {
       if (finished) return;
       finished = true;
       c.root.remove();
+      c.offViewport?.();
       background.forEach((n) => (n.inert = false));
       c.trigger?.focus({ preventScroll: true });
       cur = null;
@@ -199,7 +210,7 @@ export function createHost({ layer, background, getScale = () => 1 }) {
 
     panel.addEventListener("pointerdown", (e) => {
       if (c.closing || e.button > 0 || e.target.closest("button,a,input,textarea,select")) return;
-      if (scroll.scrollTop > 0) return;
+      if ((e.target.closest?.("[data-popup-scroll]") ?? scroll).scrollTop > 0) return; // list not at its top: let it scroll
       active = true;
       startY = lastY = e.clientY;
       lastT = e.timeStamp;

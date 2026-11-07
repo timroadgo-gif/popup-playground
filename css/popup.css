@@ -5,6 +5,10 @@
 /* Backdrop: design-system ModalBackdrop (css/backdrop.css), created by the host. */
 
 .popup__panel { position: absolute; outline: none; touch-action: none; background: var(--surface); }
+/* The panel clips its content to its own shape: scrolled content (an opaque sticky bar, an image) can never paint
+   over the rounded top corners and make the sheet look rectangular. clip (not hidden) creates no scroll container,
+   so focus or scrollIntoView can never scroll the shell itself. */
+.popup__panel { overflow: hidden; overflow: clip; }
 
 /* kind: sheet — floating, inset from display edges, concentric radius, opaque container */
 .popup--sheet .popup__panel {
@@ -30,6 +34,25 @@
 
 .popup__scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; scrollbar-width: none; }
 .popup__scroll::-webkit-scrollbar { display: none; }
+/* Split layout (js/popup-host.js): the shell does not scroll; header regions stay fixed and each
+   [data-popup-scroll] region scrolls on its own (iOS momentum, no scroll chaining into the page or the sheet).
+   The region pads its end by the sheet's bottom padding, the home indicator and an open keyboard. */
+.popup__scroll--split { display: flex; flex: 1 1 auto; flex-direction: column; overflow: hidden; }
+.popup__scroll--split > * { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; }
+.popup__scroll--split .ps { flex: 1 1 auto; min-height: 0; padding-bottom: 0; }
+[data-popup-scroll] {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding-bottom: calc(var(--ps-pad-bottom, 0px) + var(--ps-safe-bottom, 0px) + var(--popup-keyboard, 0px));
+  scrollbar-width: none;
+}
+[data-popup-scroll]::-webkit-scrollbar { display: none; }
+/* Whole-content scrolling: an open keyboard adds room at the end, so the last field can scroll above it. */
+.popup__scroll:not(.popup__scroll--split) { padding-bottom: var(--popup-keyboard, 0px); }
 
 
 /* Close control without a header row: glass X at the close inset from the top and trailing edges. In simple popups

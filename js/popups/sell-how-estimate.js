@@ -1,4 +1,4 @@
-import { sheet, head } from "../ui/sheet.js?v=df7fff2baa0a";
+import { sheet, head } from "../ui/sheet.js?v=5f758c49d6c8";
 
 // Figma «Работа» 497:4310. Text only, no actions: closes via backdrop, swipe or Escape.
 export default {
