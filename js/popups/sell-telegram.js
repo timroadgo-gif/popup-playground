@@ -1,4 +1,4 @@
-import { sheet, head, actions } from "../ui/sheet.js?v=5f758c49d6c8";
+import { sheet, head, actions } from "../ui/sheet.js?v=b2be496d01bb";
 
 // Figma «Работа» 497:3982. The bot link is not in the source, so both actions only close the sheet.
 export default {

@@ -2,11 +2,11 @@
 // backdrop, motion, focus, inert background, swipe-to-dismiss and state reset (DOM is rebuilt per open).
 // Guarded patterns (form): X / swipe / backdrop / Escape on a changed form open the discard Alert instead of closing.
 
-import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=5f758c49d6c8";
-import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=5f758c49d6c8";
-import { createAlert } from "../design-system/components/alert/alert.js?v=5f758c49d6c8";
-import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=5f758c49d6c8";
-import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=5f758c49d6c8";
+import { createIconButton } from "../design-system/components/icon-button/icon-button.js?v=b2be496d01bb";
+import { createModalBackdrop, openBackdrop, closeBackdrop } from "../design-system/backdrop/backdrop.js?v=b2be496d01bb";
+import { createAlert } from "../design-system/components/alert/alert.js?v=b2be496d01bb";
+import { createDragIndicator } from "../design-system/components/drag-indicator/drag-indicator.js?v=b2be496d01bb";
+import { dismissPolicy, DISCARD_ALERT } from "./patterns.js?v=b2be496d01bb";
 
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");
 const FOCUSABLE = 'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -91,7 +91,11 @@ export function createHost({ layer, background, getScale = () => 1 }) {
     // later never switches the mode.
     const hasForm = !!scroll.querySelector(FORM_CONTROLS);
     let full = hasForm;
-    if (!hasForm) {
+    // Opt-in exception (variant.presentation === "compact", no form controls): always the floating card, whatever its
+    // height; it scrolls inside within the screen limit. Used where an approved reference is an island (product card
+    // «Связаться с нами», Louis Vuitton «Contact Us», user decision 2026-11-09). Every other popup: rule above.
+    if (!hasForm && variant.presentation === "compact") full = false;
+    else if (!hasForm) {
       panel.style.maxHeight = "none";
       full = panel.offsetHeight > layer.offsetHeight * FULL_SHEET_RATIO;
       panel.style.maxHeight = "";
