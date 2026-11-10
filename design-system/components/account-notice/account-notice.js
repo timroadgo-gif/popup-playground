@@ -1,5 +1,5 @@
 // AccountNotice factory. createAccountNotice({ icon, message, parts }) where parts = strings and { link, onClick }.
-import { createIcon } from "../../icons/icon.js?v=b2be496d01bb";
+import { createIcon } from "../../icons/icon.js?v=b69c5e5698f0";
 
 export function createAccountNotice({ icon = "user", message, parts = [] } = {}) {
   if (!message) throw new Error("AccountNotice: message is required");
