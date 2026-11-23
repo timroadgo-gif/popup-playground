@@ -33,8 +33,11 @@ export function createAmountInput({ value = "", invalid = false, label = "Вып
     slot.classList.toggle("is-open", isInvalid);
     error.textContent = isInvalid ? "Укажите сумму выплаты" : "";
     if (isInvalid) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
-    requestAnimationFrame(() => { const w = mirror.getBoundingClientRect().width; if (w) input.style.width = `${Math.ceil(w) + 3}px`; });
   };
+  // Width = mirror text + 3 px, as in Flow. Measured whenever the mirror changes size (text, font load, insertion into
+  // the page) — a one-off measurement at creation returned 0 before the element was in the DOM.
+  const fit = () => { const w = mirror.getBoundingClientRect().width; if (w) input.style.width = `${Math.ceil(w) + 3}px`; };
+  if (typeof ResizeObserver !== "undefined") new ResizeObserver(fit).observe(mirror);
   input.addEventListener("input", () => { digits = input.value.replace(/\D/g, "").replace(/^0+/, "").slice(0, MAX_DIGITS); isInvalid = false; sync(); });
   sync();
   return {

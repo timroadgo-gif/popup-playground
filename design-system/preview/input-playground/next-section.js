@@ -1,7 +1,7 @@
 // «Новое поле · Input (кандидат)» — sections of the Input Components Playground for the proposed field
 // (sandbox/next/input.*). The page helpers (h, section, state, …) are passed in by playground.js. Mock data only.
-import { createInput } from "./sandbox/next/input.js?v=5142bc3a314a";
-import { createButton } from "../../components/button/button.js?v=5142bc3a314a";
+import { createInput } from "./sandbox/next/input.js?v=5aa7ea604bcc";
+import { createButton } from "../../components/button/button.js?v=5aa7ea604bcc";
 
 const CATEGORIES = ["Сумки", "Обувь", "Аксессуары", "Украшения", "Одежда"];
 const CITIES = ["Москва", "Санкт-Петербург", "Казань", "Екатеринбург", "Краснодар"];

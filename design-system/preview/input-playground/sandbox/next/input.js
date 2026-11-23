@@ -1,7 +1,7 @@
 // Input (candidate, 2026-11-24) — the proposed next UI Kit field with a floating label. Spec: spec.md (same folder).
 // createInput({ kind, label, ... }) → { el, control, value, setValue, setError, setSuccess, setDisabled, setReadOnly,
 // validate, focus }. One component for eight kinds; formatting and validation are per kind, the look is shared.
-import { createIcon } from "../../../../icons/icon.js?v=5142bc3a314a";
+import { createIcon } from "../../../../icons/icon.js?v=5aa7ea604bcc";
 
 export const INPUT_KINDS = ["text", "email", "tel", "number", "password", "textarea", "select", "search"];
 

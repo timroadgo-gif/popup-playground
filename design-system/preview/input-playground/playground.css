@@ -63,8 +63,8 @@ body[data-width="375"] .ipg-wrap { max-width: 375px; }
 .ipg-sub { margin: var(--spacing-standard-block) 0 var(--spacing-standard-text-group); color: var(--color-grey-7); }
 .ipg-controls { display: flex; flex-wrap: wrap; gap: var(--spacing-compact-inline); margin: var(--spacing-standard-control) 0; }
 
-.ipg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--spacing-standard-control); }
-.ipg-grid--wide { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+.ipg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: var(--spacing-standard-control); }
+.ipg-grid--wide { grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); }
 body[data-width="375"] .ipg-grid, body[data-width="375"] .ipg-grid--wide { grid-template-columns: 1fr; }
 .ipg-state { display: flex; flex-direction: column; gap: var(--spacing-compact-inline); min-width: 0; }
 .ipg-state__label { margin: 0; color: var(--color-grey-7); }
@@ -84,6 +84,10 @@ body[data-width="375"] .ipg-grid, body[data-width="375"] .ipg-grid--wide { grid-
 .ipg-stage--grey { background: var(--color-grey-1); }
 .ipg-stage--resizable { resize: horizontal; overflow: auto; max-width: 100%; }
 .ipg-stage .seller-application-page { display: flex; flex-direction: column; gap: var(--spacing-standard-text-group); min-width: 0; }
+/* Flow clips its page (.seller-application-page { overflow: hidden } in Flow styles.css), so the scaled resting label of
+   SellerTextField and over-long nowrap chips never widen the screen. Same clip here; the wrapper reaches 8 px into the
+   stage padding so focus rings at its edges are not cut (overflow-clip-margin is missing in Safari). */
+.ipg-stage .seller-application-page { overflow: clip; margin: calc(var(--spacing-compact-inline) * -1); padding: var(--spacing-compact-inline); }
 
 .ipg-row { display: grid; gap: var(--spacing-standard-text-group); min-width: 0; }
 .ipg-row--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
