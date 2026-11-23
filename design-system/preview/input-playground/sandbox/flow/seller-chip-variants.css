@@ -1,0 +1,35 @@
+/* SellerChip — selected-state EXPERIMENT, three variants for comparison (2026-11-23). Page-only: loaded by the Input
+   Components Playground on top of seller-chip.css; nothing in Flow or the UI Kit imports it. A demo opts in with
+   <div class="seller-application-page is-ui-v2 chip-var chip-var--a|b|c">.
+
+   Shared by all three (only the selected treatment differs):
+   • default — light-grey pill (grey-2), border present but transparent, ink text; geometry, type and 44 px hit area
+     from seller-chip.css §7 (32 px, 13/18, padding 0 12, gaps 12 / 8);
+   • selected border — dark green (green-7), 1 px border + 0.5 px inset ring = 1.5 px optical weight; the border is always
+     there (transparent by default), so nothing moves when it appears;
+   • motion — background, border and ring cross-fade in 200 ms on the flow curve (.4, 0, .2, 1), the same way back;
+     the self-drawing outline of the current flow version is hidden; no scale, no spring; reduced motion = instant.
+
+   Selected fill: A — green-1 tint · B — white · C — unchanged grey-2. */
+.seller-application-page.is-ui-v2.chip-var :is(.seller-details-condition, .seller-details-chips) button.seller-chip.seller-chip {
+  border-color: transparent;
+  background: var(--color-grey-2);
+  color: var(--color-black-3);
+  box-shadow: inset 0 0 0 0.5px transparent;
+  transition:
+    background-color 200ms var(--chip-ease),
+    border-color 200ms var(--chip-ease),
+    box-shadow 200ms var(--chip-ease);
+}
+.seller-application-page.is-ui-v2.chip-var :is(.seller-details-condition, .seller-details-chips) button.seller-chip.seller-chip.is-selected {
+  border-color: var(--color-green-7);
+  color: var(--color-black-3);
+  box-shadow: inset 0 0 0 0.5px var(--color-green-7);
+}
+.seller-application-page.is-ui-v2.chip-var--a :is(.seller-details-condition, .seller-details-chips) button.seller-chip.seller-chip.is-selected { background: var(--color-green-1); }
+.seller-application-page.is-ui-v2.chip-var--b :is(.seller-details-condition, .seller-details-chips) button.seller-chip.seller-chip.is-selected { background: var(--color-white); }
+.seller-application-page.is-ui-v2.chip-var--c :is(.seller-details-condition, .seller-details-chips) button.seller-chip.seller-chip.is-selected { background: var(--color-grey-2); }
+.seller-application-page.is-ui-v2.chip-var .seller-chip__outline { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .seller-application-page.is-ui-v2.chip-var :is(.seller-details-condition, .seller-details-chips) button.seller-chip.seller-chip { transition: none; }
+}

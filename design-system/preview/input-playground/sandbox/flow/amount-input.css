@@ -1,0 +1,21 @@
+/* Price amount — big centred numeric input of the pricing step («За сколько хотите продать лот?»).
+   COPY from Desktop/Проект/Flow (commit 5b93ff2, 2026-11-23): src/styles.css (.seller-price-amount*, .seller-price-error*).
+   Deviation: the flow paints the digits with an animated FlowText overlay and makes the input's own text transparent;
+   that overlay is not copied, so here the input shows its text directly (the rules for transparent text are omitted). */
+.seller-price-amount { --amount-base: clamp(38px,12vw,48px); position: relative; display: flex; width: 100%; max-width: 100%; align-items: baseline; justify-content: center; gap: calc(10px * var(--amount-scale,1)); color: var(--color-black-3); font-family: var(--font-family-sans); font-weight: var(--font-weight-regular); font-variant-numeric: tabular-nums; letter-spacing: 0px; transition: color 150ms var(--seller-ease-settle); }
+.seller-price-amount.is-invalid { color: rgb(162, 61, 53); }
+.seller-price-amount.is-empty { color: rgb(201, 201, 201); }
+.seller-price-amount.is-empty.is-invalid { color: rgb(162, 61, 53); }
+.seller-price-amount__mirror { position: absolute; top: 0px; left: 0px; visibility: hidden; white-space: pre; font-size: var(--amount-base); line-height: 1.15; pointer-events: none; }
+.seller-price-amount__field { position: relative; display: inline-block; flex: 0 0 auto; line-height: 0; }
+.seller-price-content .seller-price-amount__input { box-sizing: content-box; min-width: 0.6ch; max-width: 100%; height: calc(var(--amount-base) * var(--amount-scale,1) * 1.15); margin: 0px; padding: 0px; border: 0px; border-radius: 0px; outline: 0px; background: transparent; color: inherit; caret-color: var(--color-black-3); font: inherit; font-size: calc(var(--amount-base) * var(--amount-scale,1)); line-height: 1.15; letter-spacing: inherit; text-align: left; appearance: none; transition: color 150ms var(--seller-ease-settle); }
+.seller-price-content .seller-price-amount__input::placeholder { color: rgb(201, 201, 201); opacity: 1; }
+.seller-price-amount.is-invalid .seller-price-amount__input::placeholder { color: rgb(162, 61, 53); }
+.seller-price-amount__currency { flex: 0 0 auto; font-size: calc(var(--amount-base) * var(--amount-scale,1)); line-height: 1.15; transition: color 150ms var(--seller-ease-settle); }
+.seller-application-page .seller-price-amount__currency { font-size: calc(var(--amount-base) * var(--amount-scale,1) * .72); color: rgb(90, 90, 90); }
+.seller-application-page .seller-price-amount.is-empty .seller-price-amount__currency { color: rgb(201, 201, 201); }
+.seller-application-page .seller-price-amount.is-invalid .seller-price-amount__currency { color: rgb(162, 61, 53); }
+.seller-price-error-slot { display: grid; width: 100%; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 220ms var(--seller-ease-arrive), opacity 180ms var(--seller-ease-settle); }
+.seller-price-error-slot.is-open { grid-template-rows: 1fr; opacity: 1; }
+.seller-price-error-slot > .seller-price-error { min-height: 0; overflow: hidden; margin: 0; padding-top: var(--spacing-standard-text-group); color: #a23d35; font-size: var(--text-body-size); line-height: var(--text-body-line-height); text-align: center; }
+@media (prefers-reduced-motion: reduce) { .seller-price-amount, .seller-price-content .seller-price-amount__input, .seller-price-amount__currency, .seller-price-error-slot { transition: none; } }

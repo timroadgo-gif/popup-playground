@@ -1,0 +1,76 @@
+/* COPY of Desktop/Проект/Flow/src/seller-text-field.css (commit 5b93ff2, 2026-11-23), unchanged. Behaviour: seller-text-field.js (port of SellerTextField.jsx). */
+/* Seller-flow text field — Figma «Работа» 696:5183. Values from the file:
+   outline 1 px #E6E6E6 (inside stroke, superellipse r16 / 60 % smoothing, drawn by .seller-field__shape),
+   Figma v2 (2026-11-20): padding 12 / 12 / 12 / 20, label → value gap 8; label 12 / normal Manrope Regular #A9A9A9; value
+   16 / normal Manrope Regular black. On request («more air, Doja philosophy») the vertical padding is 16 instead of 12
+   → 78 px field; left 20 and right 12 as in Figma. Not in Figma (our choices, restrained): focus outline #1B1B1B, error outline UI Kit red,
+   disabled fill grey-1. Empty + unfocused: the label sits in the value line at 16 px (scale 4/3) — focus or a value
+   lifts it to 12 px; one 180 ms transform, the field never changes size. */
+.seller-field {
+  --field-stroke: #e6e6e6;
+  --field-fill: #fff;
+  --field-pad-y: 16px;
+  --field-gap: 8px;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  padding: var(--field-pad-y) 12px var(--field-pad-y) 20px;
+  background: none;
+  cursor: text;
+  -webkit-tap-highlight-color: transparent;
+}
+.seller-field__shape { position: absolute; inset: 0; z-index: 0; display: block; overflow: visible; pointer-events: none; }
+.seller-field__shape path { fill: var(--field-fill); stroke: var(--field-stroke); stroke-width: 1; transition: stroke 150ms cubic-bezier(.4, 0, .2, 1), fill 150ms cubic-bezier(.4, 0, .2, 1); }
+.seller-field.is-focused { --field-stroke: #1b1b1b; }
+.seller-field.is-invalid { --field-stroke: var(--field-error-color, #c4352b); }
+.seller-field:has(.seller-field__input:disabled) { --field-fill: var(--color-grey-1, #f7f7f7); cursor: default; }
+.seller-field__body { position: relative; z-index: 1; display: flex; flex: 1 1 0; min-width: 0; flex-direction: column; gap: var(--field-gap); }
+.seller-field__label {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #a9a9a9;
+  font-family: Manrope, var(--font-family-base, sans-serif);
+  font-size: 12px;
+  line-height: 16.4px; /* Manrope «normal» in Figma (1.366); browsers round «normal» up to 17 */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transform-origin: 0 0;
+  pointer-events: none; /* a tap on the resting label lands on the input underneath */
+  transition: transform 180ms cubic-bezier(.2, .75, .25, 1);
+}
+/* Resting position: label centred in the field at value size. 12 × 4/3 = 16 px; its 16.4 px box becomes 21.9 px, so its
+   top moves down by (label 16.4 + gap) / 2 from the lifted position — independent of the padding. */
+.seller-field:not(.is-filled):not(.is-focused):not(.is-multiline) .seller-field__label,
+.seller-field.is-multiline:not(.is-filled):not(.is-focused) .seller-field__label { transform: translateY(calc((16.4px + var(--field-gap)) / 2)) scale(1.3333); }
+.seller-field__input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  background: transparent;
+  color: #000;
+  font-family: Manrope, var(--font-family-base, sans-serif);
+  font-size: 16px; /* ≥ 16 px: no iOS focus zoom */
+  line-height: 21.9px; /* Figma «normal» */
+  height: 21.9px;
+  font-weight: 400;
+  letter-spacing: 0;
+  caret-color: #1b1b1b;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.seller-field__input::placeholder { color: transparent; }
+.seller-field textarea.seller-field__input { height: auto; min-height: 21.9px; overflow: hidden; resize: none; }
+.seller-field__input:-webkit-autofill { -webkit-text-fill-color: #000; transition: background-color 9999s; }
+@media (prefers-reduced-motion: reduce) { .seller-field__label, .seller-field__shape path { transition: none; } }
