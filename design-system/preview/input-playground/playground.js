@@ -1,11 +1,12 @@
 // Input Components Playground — page logic. Components come ONLY from sandbox/ (copies); nothing here is imported by the
 // app. Page tools: style source (sandbox / original), stage background, mobile column, slow motion, forced states.
-import { createField, setFieldValue, setFieldError } from "./sandbox/ui-kit/field.js?v=3ebf24be5d9a";
-import { createCheckbox } from "./sandbox/ui-kit/checkbox.js?v=3ebf24be5d9a";
-import { createSellerChip } from "./sandbox/flow/seller-chip.js?v=3ebf24be5d9a";
-import { createSellerTextField } from "./sandbox/flow/seller-text-field.js?v=3ebf24be5d9a";
-import { createAmountInput } from "./sandbox/flow/amount-input.js?v=3ebf24be5d9a";
-import { createIcon } from "../../icons/icon.js?v=3ebf24be5d9a";
+import { createField, setFieldValue, setFieldError } from "./sandbox/ui-kit/field.js?v=5142bc3a314a";
+import { createCheckbox } from "./sandbox/ui-kit/checkbox.js?v=5142bc3a314a";
+import { createSellerChip } from "./sandbox/flow/seller-chip.js?v=5142bc3a314a";
+import { createSellerTextField } from "./sandbox/flow/seller-text-field.js?v=5142bc3a314a";
+import { createAmountInput } from "./sandbox/flow/amount-input.js?v=5142bc3a314a";
+import { createIcon } from "../../icons/icon.js?v=5142bc3a314a";
+import { nextInputSections } from "./next-section.js?v=5142bc3a314a";
 
 const params = new URLSearchParams(location.search);
 const app = document.getElementById("app");
@@ -105,10 +106,10 @@ const sub = (text) => h("h3", { class: "ipg-sub ds-text-overline" }, text);
 const grid = (...cards) => h("div", { class: "ipg-grid" }, ...cards);
 const gridWide = (...cards) => h("div", { class: "ipg-grid ipg-grid--wide" }, ...cards);
 const flow = (...children) => h("div", { class: "seller-application-page is-ui-v2" }, ...children);
-function state(label, content, note) {
+function state(label, content, note, stageClass = "") {
   return h("div", { class: "ipg-state" },
     h("p", { class: "ipg-state__label ds-text-caption" }, label),
-    h("div", { class: "ipg-stage" }, content),
+    h("div", { class: `ipg-stage ${stageClass}`.trim() }, content),
     note && h("p", { class: "ipg-state__note ds-text-caption" }, note));
 }
 const controls = (...items) => h("div", { class: "ipg-controls" }, ...items);
@@ -575,6 +576,7 @@ function layoutSection() {
 const COLS = ["Пусто / плейсх.", "Заполнено", "Фокус", "Hover", "Нажатие", "Выбрано", "Disabled", "Read-only", "Ошибка", "Успех", "Загрузка"];
 const Y = "есть", N = "нет", NA = "—";
 const MATRIX = [
+  ["Input · кандидат (8 видов)", "метка = плейсх.", Y, Y, "мышь", NA, NA, Y, Y, Y, "почта, телефон", N],
   ["Field · текст (UI Kit)", Y, Y, Y, N, NA, NA, Y, Y, Y, N, N],
   ["Field · textarea (UI Kit)", Y, Y, Y, N, NA, NA, Y, Y, Y, N, N],
   ["Field · select (UI Kit)", Y, Y, Y, N, Y, NA, Y, Y, Y, N, N],
@@ -704,7 +706,7 @@ function render() {
   if (params.get("embed") === "1") document.body.dataset.embed = "1";
   if (params.get("view") === "compare") { renderCompare(); return; }
 
-  const sections = [textFieldSection(), textareaSection(), selectSection(), searchSection(), sellerFieldSection(), amountSection(), checkSection(), chipsSection(), chipVariantsSection(), layoutSection(), summarySection()];
+  const sections = [nextInputSections({ h, section, sub, state, controls, btn, toggleBtn, force }), textFieldSection(), textareaSection(), selectSection(), searchSection(), sellerFieldSection(), amountSection(), checkSection(), chipsSection(), chipVariantsSection(), layoutSection(), summarySection()];
   const compare = new URL(location.href);
   compare.searchParams.set("view", "compare");
 

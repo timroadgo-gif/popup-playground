@@ -1,4 +1,4 @@
-import { sheet, head, body, node } from "../ui/sheet.js?v=3ebf24be5d9a";
+import { sheet, head, body, node } from "../ui/sheet.js?v=5142bc3a314a";
 
 // Content-heavy informational sheet (template). Read-only, closing loses nothing → simple: swipe, single detent,
 // backdrop, Escape. Copy is placeholder.

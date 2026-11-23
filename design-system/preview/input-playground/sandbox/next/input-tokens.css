@@ -1,0 +1,48 @@
+/* Input (candidate, 2026-11-24): component tokens. Most values point at existing UI Kit tokens; the five marked
+   PROPOSED have no token yet and are taken from Figma «Работа» 696:5178 (Name / Phone number fields, 358 × 72).
+   They live here, not in tokens/tokens.json, until the design is approved — then move them to tokens.json
+   (paths in the comments) and run `node tokens/build.mjs`. Nothing outside preview/input-playground loads this file. */
+:root {
+  /* Geometry */
+  --input-height: 72px;                                         /* PROPOSED input.height — Figma 358 × 72 (hug) */
+  --input-height-compact: 56px;                                 /* PROPOSED input.height-compact — search, no floating label */
+  --input-radius: 12px;                                         /* PROPOSED input.radius — Figma, continuous via .ds-corner */
+  --input-padding-inline: 20px;                                 /* PROPOSED input.padding-inline (space.20) — Figma text inset */
+  --input-padding-block: var(--spacing-standard-text-group);    /* 12 — Figma: label top inset, value bottom inset */
+  --input-padding-block-compact: var(--spacing-standard-control); /* 16 — search: (56 − 24) / 2 */
+  --input-label-gap: var(--spacing-compact-stack);              /* 4 — floated label ↔ value */
+  --input-trailing-gap: var(--spacing-standard-text-group);     /* 12 — value ↔ trailing icon / action */
+  --input-icon-size: var(--icon-size-md);                       /* 24 */
+  --input-border-width: 1px;                                    /* hairline, as field.focus.ring-width */
+  --input-message-gap: var(--spacing-compact-inline);           /* 8 — field ↔ message / counter */
+
+  /* Type: value 16/24 (Figma; also the iOS no-zoom size), floated label 14/20 (Figma), message 12/16 */
+  --input-value-size: var(--text-input-touch-size);             /* 16 */
+  --input-value-line-height: var(--text-heading-s-line-height); /* 24 */
+  --input-label-size: var(--text-body-size);                    /* 14 */
+  --input-label-line-height: var(--text-body-line-height);      /* 20 */
+  --input-label-scale: 0.875;                                   /* 14 / 16: the label is one element, scaled, never re-typeset */
+
+  /* Colour */
+  --input-background: var(--color-white);
+  --input-border: #e6e6e6;                                      /* PROPOSED color.grey.3 — sampled from Figma; grey-2 (#efefef) is too faint on grey-1 */
+  --input-border-hover: color-mix(in srgb, var(--input-border), var(--color-black-3) 16%); /* hover (fine pointers only): one step darker */
+  --input-border-focus: var(--color-black-3);
+  --input-foreground: var(--color-black-3);
+  --input-placeholder: var(--color-grey-6);                     /* resting label (placeholder role) */
+  --input-label: var(--color-grey-7);                           /* floated label: 4.97:1 on white (Figma #a9a9a9 is 2.3:1) */
+  --input-hint: var(--color-grey-6);                            /* format hint inside a focused empty field */
+  --input-icon: var(--color-grey-7);
+  --input-error: var(--color-red-7);
+  --input-success: var(--color-green-7);
+  --input-disabled-background: var(--color-grey-1);
+  --input-disabled-border: var(--color-grey-2);
+  --input-disabled-foreground: var(--color-grey-6);
+  --input-readonly-background: var(--color-grey-1);
+  --input-readonly-border: var(--color-grey-2);
+
+  /* Motion: one deliberate ease-in-out for the label, borders follow a little faster */
+  --input-motion-duration: 240ms;                               /* PROPOSED motion.duration.medium */
+  --input-motion-easing: cubic-bezier(0.4, 0, 0.2, 1);          /* PROPOSED motion.easing.in-out */
+  --input-colour-duration: var(--motion-duration-fast);         /* 120 */
+}
