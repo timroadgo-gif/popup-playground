@@ -2,8 +2,8 @@
    One component, eight kinds (text, email, tel, number, password, textarea, select, search); every kind shares this
    geometry and these states. Values come from input-tokens.css. Corners: shared continuous geometry (.ds-corner).
 
-   Floating label: ONE element. Resting, it is typeset at value size (16/24) and centred in the field, acting as the
-   placeholder. Focused or filled, it moves up and scales to 0.875 (= 14/20) with transform only, so the text never
+   Floating label: ONE element. Resting, it is typeset at 14/20 and centred in the field, acting as the
+   placeholder. Focused or filled, it moves up and scales to 0.857 (= 12/16) with transform only, so the text never
    re-flows, never swaps elements and never jumps. The border is an inset box-shadow, so no state changes the size.
    Markup (see input.js / spec.md):
    .ds-input-field[data-kind] › .ds-input.ds-corner › [.ds-input__leading] .ds-input__body › label.ds-input__label +
@@ -16,8 +16,8 @@
   --_h: var(--input-height);
   --_pad-y: var(--input-padding-block);
   --_border: var(--input-border);
-  --_rest-top: calc((var(--_h) - var(--input-value-line-height)) / 2);
-  --_float-y: calc(var(--_pad-y) + var(--input-label-line-height) / 2 - var(--input-value-line-height) * var(--input-label-scale) / 2 - var(--_rest-top));
+  --_rest-top: calc((var(--_h) - var(--input-rest-line-height)) / 2);
+  --_float-y: calc(var(--_pad-y) + var(--input-label-line-height) / 2 - var(--input-rest-line-height) * var(--input-label-scale) / 2 - var(--_rest-top));
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -62,6 +62,8 @@
   -webkit-appearance: none;
   appearance: none;
 }
+/* iOS Safari zooms into inputs below 16 px: the value is 16 on touch screens, 14 elsewhere (as .ds-text-input). */
+@media (pointer: coarse) { .ds-input { --input-value-size: var(--input-value-size-touch); } }
 .ds-input__value { overflow: hidden; white-space: nowrap; min-height: var(--input-value-line-height); }
 textarea.ds-input__control { resize: none; overflow: hidden; min-height: calc(var(--input-value-line-height) * 2); }
 .ds-input__control::-webkit-search-cancel-button, .ds-input__control::-webkit-search-decoration { -webkit-appearance: none; }
@@ -79,8 +81,8 @@ textarea.ds-input__control { resize: none; overflow: hidden; min-height: calc(va
   max-width: 100%;
   overflow: hidden;
   color: var(--input-placeholder);
-  font: var(--text-input-weight) var(--input-value-size) / var(--input-value-line-height) var(--font-family-sans);
-  letter-spacing: var(--text-input-letter-spacing);
+  font: var(--text-body-weight) var(--input-rest-size) / var(--input-rest-line-height) var(--font-family-sans);
+  letter-spacing: var(--text-body-letter-spacing);
   white-space: nowrap;
   text-overflow: ellipsis;
   transform-origin: 0 0;
@@ -167,7 +169,7 @@ textarea.ds-input__control { resize: none; overflow: hidden; min-height: calc(va
 .ds-input[data-kind="select"] .ds-input__trailing .ds-icon { transition: transform var(--input-motion-duration) var(--input-motion-easing); }
 
 /* search: compact height, the label is a placeholder only — it fades out when text is typed instead of floating. */
-.ds-input[data-kind="search"] { --_h: var(--input-height-compact); --_pad-y: var(--input-padding-block-compact); }
+.ds-input[data-kind="search"] { --_h: var(--input-height-compact); --_pad-y: calc((var(--_h) - var(--input-value-line-height)) / 2); }
 .ds-input[data-kind="search"] .ds-input__body { padding-top: var(--_pad-y); }
 .ds-input[data-kind="search"]:focus-within .ds-input__label { transform: none; color: var(--input-placeholder); }
 .ds-input[data-kind="search"][data-filled] .ds-input__label { transform: none; opacity: 0; }

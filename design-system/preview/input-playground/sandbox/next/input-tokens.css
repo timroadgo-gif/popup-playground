@@ -8,20 +8,24 @@
   --input-height-compact: 56px;                                 /* PROPOSED input.height-compact — search, no floating label */
   --input-radius: 12px;                                         /* PROPOSED input.radius — Figma, continuous via .ds-corner */
   --input-padding-inline: 20px;                                 /* PROPOSED input.padding-inline (space.20) — Figma text inset */
-  --input-padding-block: var(--spacing-standard-text-group);    /* 12 — Figma: label top inset, value bottom inset */
-  --input-padding-block-compact: var(--spacing-standard-control); /* 16 — search: (56 − 24) / 2 */
+  --input-padding-block: var(--spacing-standard-control);       /* 16 = (72 − 16 − 4 − 20) / 2: label + value centred in the field */
   --input-label-gap: var(--spacing-compact-stack);              /* 4 — floated label ↔ value */
   --input-trailing-gap: var(--spacing-standard-text-group);     /* 12 — value ↔ trailing icon / action */
   --input-icon-size: var(--icon-size-md);                       /* 24 */
   --input-border-width: 1px;                                    /* hairline, as field.focus.ring-width */
   --input-message-gap: var(--spacing-compact-inline);           /* 8 — field ↔ message / counter */
 
-  /* Type: value 16/24 (Figma; also the iOS no-zoom size), floated label 14/20 (Figma), message 12/16 */
-  --input-value-size: var(--text-input-touch-size);             /* 16 */
-  --input-value-line-height: var(--text-heading-s-line-height); /* 24 */
-  --input-label-size: var(--text-body-size);                    /* 14 */
-  --input-label-line-height: var(--text-body-line-height);      /* 20 */
-  --input-label-scale: 0.875;                                   /* 14 / 16: the label is one element, scaled, never re-typeset */
+  /* Type (2026-11-24, the user asked for finer type than Figma's 16 / 14): compact luxury scale of the kit.
+     Value = text.input 14/20 (16 on touch screens: iOS Safari zooms into inputs below 16 — see input.css).
+     Label at rest = text.body 14/20; floated = text.caption 12/16. Message 12/16. */
+  --input-value-size: var(--text-input-size);                   /* 14 */
+  --input-value-size-touch: var(--text-input-touch-size);       /* 16 */
+  --input-value-line-height: var(--text-input-line-height);     /* 20 */
+  --input-rest-size: var(--text-body-size);                     /* 14 — label as placeholder */
+  --input-rest-line-height: var(--text-body-line-height);       /* 20 */
+  --input-label-size: var(--text-caption-size);                 /* 12 — floated label */
+  --input-label-line-height: var(--text-caption-line-height);   /* 16 */
+  --input-label-scale: 0.8571;                                  /* 12 / 14: the label is one element, scaled, never re-typeset */
 
   /* Colour */
   --input-background: var(--color-white);

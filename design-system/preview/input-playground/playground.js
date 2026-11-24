@@ -1,12 +1,12 @@
 // Input Components Playground — page logic. Components come ONLY from sandbox/ (copies); nothing here is imported by the
 // app. Page tools: style source (sandbox / original), stage background, mobile column, slow motion, forced states.
-import { createField, setFieldValue, setFieldError } from "./sandbox/ui-kit/field.js?v=5aa7ea604bcc";
-import { createCheckbox } from "./sandbox/ui-kit/checkbox.js?v=5aa7ea604bcc";
-import { createSellerChip } from "./sandbox/flow/seller-chip.js?v=5aa7ea604bcc";
-import { createSellerTextField } from "./sandbox/flow/seller-text-field.js?v=5aa7ea604bcc";
-import { createAmountInput } from "./sandbox/flow/amount-input.js?v=5aa7ea604bcc";
-import { createIcon } from "../../icons/icon.js?v=5aa7ea604bcc";
-import { nextInputSections } from "./next-section.js?v=5aa7ea604bcc";
+import { createField, setFieldValue, setFieldError } from "./sandbox/ui-kit/field.js?v=cbc81ceff63d";
+import { createCheckbox } from "./sandbox/ui-kit/checkbox.js?v=cbc81ceff63d";
+import { createSellerChip } from "./sandbox/flow/seller-chip.js?v=cbc81ceff63d";
+import { createSellerTextField } from "./sandbox/flow/seller-text-field.js?v=cbc81ceff63d";
+import { createAmountInput } from "./sandbox/flow/amount-input.js?v=cbc81ceff63d";
+import { createIcon } from "../../icons/icon.js?v=cbc81ceff63d";
+import { nextInputSections } from "./next-section.js?v=cbc81ceff63d";
 
 const params = new URLSearchParams(location.search);
 const app = document.getElementById("app");
