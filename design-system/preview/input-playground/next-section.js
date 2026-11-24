@@ -1,7 +1,7 @@
 // «Новое поле · Input (кандидат)» — sections of the Input Components Playground for the proposed field
 // (sandbox/next/input.*). The page helpers (h, section, state, …) are passed in by playground.js. Mock data only.
-import { createInput } from "./sandbox/next/input.js?v=cbc81ceff63d";
-import { createButton } from "../../components/button/button.js?v=cbc81ceff63d";
+import { createInput } from "./sandbox/next/input.js?v=f7c37eca60bb";
+import { createButton } from "../../components/button/button.js?v=f7c37eca60bb";
 
 const CATEGORIES = ["Сумки", "Обувь", "Аксессуары", "Украшения", "Одежда"];
 const CITIES = ["Москва", "Санкт-Петербург", "Казань", "Екатеринбург", "Краснодар"];
@@ -125,8 +125,8 @@ export function nextInputSections({ h, section, sub, state, controls, btn, toggl
   return section({
     id: "input-next",
     title: "Новое поле · Input (кандидат)",
-    lead: "Предлагаемое поле UI Kit по Figma «Работа» 696:5178: 72 px, плавающая метка, тонкая светло-серая обводка, непрерывные углы. Один компонент — восемь видов ввода. Живёт только здесь (sandbox/next/), UI Kit и приложение не меняются.",
-    sources: [["Компонент", "sandbox/next/input.{css,js}, sandbox/next/spec.md"], ["Токены (предложение)", "sandbox/next/input-tokens.css"], ["Figma", "VHsF9oQk2DtcpGZXHkpSNp · 696:5178"]],
+    lead: "Предлагаемое поле UI Kit в духе Louis Vuitton по Figma «Работа» 755:4587: все размеры кратны 2 — высота 68, отступы 16, скругление 8, метка 10/14, значение 14/20, поля через 24. Высота не меняется, когда метка всплывает. Один компонент — восемь видов ввода. Живёт только здесь (sandbox/next/), UI Kit и приложение не меняются.",
+    sources: [["Компонент", "sandbox/next/input.{css,js}, sandbox/next/spec.md"], ["Токены (предложение)", "sandbox/next/input-tokens.css"], ["Figma", "VHsF9oQk2DtcpGZXHkpSNp · 755:4587 (раньше 696:5178)"]],
   },
     sub("Плавающая метка — попробуйте"),
     demo(),

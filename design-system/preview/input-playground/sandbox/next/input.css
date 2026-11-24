@@ -1,9 +1,9 @@
-/* Input (candidate, 2026-11-24) — the proposed next field for the UI Kit. Figma «Работа» 696:5178.
+/* Input (candidate, 2026-11-24) — the proposed next field for the UI Kit. Figma «Работа» 755:4587 (LV-style), even sizes.
    One component, eight kinds (text, email, tel, number, password, textarea, select, search); every kind shares this
    geometry and these states. Values come from input-tokens.css. Corners: shared continuous geometry (.ds-corner).
 
    Floating label: ONE element. Resting, it is typeset at 14/20 and centred in the field, acting as the
-   placeholder. Focused or filled, it moves up and scales to 0.857 (= 12/16) with transform only, so the text never
+   placeholder. Focused or filled, it moves up and scales to 0.714 (= 10/14) with transform only, so the text never
    re-flows, never swaps elements and never jumps. The border is an inset box-shadow, so no state changes the size.
    Markup (see input.js / spec.md):
    .ds-input-field[data-kind] › .ds-input.ds-corner › [.ds-input__leading] .ds-input__body › label.ds-input__label +

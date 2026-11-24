@@ -1,40 +1,44 @@
-/* Input (candidate, 2026-11-24): component tokens. Most values point at existing UI Kit tokens; the five marked
-   PROPOSED have no token yet and are taken from Figma «Работа» 696:5178 (Name / Phone number fields, 358 × 72).
-   They live here, not in tokens/tokens.json, until the design is approved — then move them to tokens.json
-   (paths in the comments) and run `node tokens/build.mjs`. Nothing outside preview/input-playground loads this file. */
+/* Input (candidate): component tokens. Revision 2026-11-24 «как у LV»: Figma «Работа» 755:4587 (fields «Имя и фамилия»,
+   filled 358 × 67 and empty 358 × 61, 24 apart), rounded to EVEN values at the user's request, and one height for every
+   state (LV keeps the field size when the label floats, so typing never shifts the layout).
+   Values marked PROPOSED have no UI Kit token yet. They live here, not in tokens/tokens.json, until the design is
+   approved — then move them to tokens.json and run `node tokens/build.mjs`. Nothing outside preview/input-playground
+   loads this file.
+   Every size below is a multiple of 2; the only odd value is the 1 px hairline border (a stroke, not a size). */
 :root {
-  /* Geometry */
-  --input-height: 72px;                                         /* PROPOSED input.height — Figma 358 × 72 (hug) */
+  /* Geometry: 68 = 16 + 14 (floated label) + 2 + 20 (value) + 16 */
+  --input-height: 68px;                                         /* PROPOSED input.height — Figma 67 (filled) / 61 (empty) → one even height */
   --input-height-compact: 56px;                                 /* PROPOSED input.height-compact — search, no floating label */
-  --input-radius: 12px;                                         /* PROPOSED input.radius — Figma, continuous via .ds-corner */
-  --input-padding-inline: 20px;                                 /* PROPOSED input.padding-inline (space.20) — Figma text inset */
-  --input-padding-block: var(--spacing-standard-control);       /* 16 = (72 − 16 − 4 − 20) / 2: label + value centred in the field */
-  --input-label-gap: var(--spacing-compact-stack);              /* 4 — floated label ↔ value */
+  --input-radius: var(--field-radius);                          /* 8 — Figma ≈ 8 (measured), continuous via .ds-corner */
+  --input-padding-inline: var(--spacing-standard-control);      /* 16 — Figma ≈ 17 → 16 */
+  --input-padding-block: var(--spacing-standard-control);       /* 16 */
+  --input-label-gap: 2px;                                       /* PROPOSED space.2 — floated label ↔ value (Figma ≈ 2–3) */
   --input-trailing-gap: var(--spacing-standard-text-group);     /* 12 — value ↔ trailing icon / action */
   --input-icon-size: var(--icon-size-md);                       /* 24 */
   --input-border-width: 1px;                                    /* hairline, as field.focus.ring-width */
   --input-message-gap: var(--spacing-compact-inline);           /* 8 — field ↔ message / counter */
+  --input-stack-gap: var(--spacing-standard-block);             /* 24 — between fields in a form (Figma 24) */
 
-  /* Type (2026-11-24, the user asked for finer type than Figma's 16 / 14): compact luxury scale of the kit.
-     Value = text.input 14/20 (16 on touch screens: iOS Safari zooms into inputs below 16 — see input.css).
-     Label at rest = text.body 14/20; floated = text.caption 12/16. Message 12/16. */
+  /* Type: value and placeholder 14/20 (Figma 14), floated label 10/14 (Figma 10).
+     Value is 16/20 on touch screens: iOS Safari zooms into inputs below 16 (see input.css).
+     10 px is below the kit's 12 px minimum — kept because the Figma reference uses it; needs approval. */
   --input-value-size: var(--text-input-size);                   /* 14 */
   --input-value-size-touch: var(--text-input-touch-size);       /* 16 */
   --input-value-line-height: var(--text-input-line-height);     /* 20 */
   --input-rest-size: var(--text-body-size);                     /* 14 — label as placeholder */
   --input-rest-line-height: var(--text-body-line-height);       /* 20 */
-  --input-label-size: var(--text-caption-size);                 /* 12 — floated label */
-  --input-label-line-height: var(--text-caption-line-height);   /* 16 */
-  --input-label-scale: 0.8571;                                  /* 12 / 14: the label is one element, scaled, never re-typeset */
+  --input-label-size: 10px;                                     /* PROPOSED text.input-label 10/14 — Figma 755:4587 */
+  --input-label-line-height: 14px;                              /* PROPOSED */
+  --input-label-scale: 0.7143;                                  /* 10 / 14: the label is one element, scaled, never re-typeset */
 
   /* Colour */
   --input-background: var(--color-white);
-  --input-border: #e6e6e6;                                      /* PROPOSED color.grey.3 — sampled from Figma; grey-2 (#efefef) is too faint on grey-1 */
+  --input-border: #e6e6e6;                                      /* PROPOSED color.grey.3 — sampled from Figma (both references) */
   --input-border-hover: color-mix(in srgb, var(--input-border), var(--color-black-3) 16%); /* hover (fine pointers only): one step darker */
   --input-border-focus: var(--color-black-3);
   --input-foreground: var(--color-black-3);
   --input-placeholder: var(--color-grey-6);                     /* resting label (placeholder role) */
-  --input-label: var(--color-grey-7);                           /* floated label: 4.97:1 on white (Figma #a9a9a9 is 2.3:1) */
+  --input-label: var(--color-grey-7);                           /* floated label: 4.97:1 on white (Figma ≈ #9b9b9b is 2.8:1) */
   --input-hint: var(--color-grey-6);                            /* format hint inside a focused empty field */
   --input-icon: var(--color-grey-7);
   --input-error: var(--color-red-7);

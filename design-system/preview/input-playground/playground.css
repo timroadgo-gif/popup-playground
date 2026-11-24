@@ -130,9 +130,9 @@ body[data-embed="1"] .ipg-header, body[data-embed="1"] .ipg-toolbar { display: n
 @media (max-width: 899px) { .ipg-compare-link { display: none; } }
 
 /* «Новое поле · Input (кандидат)» section: stacks, white card on grey, demo stage, adaptive 3-up row. */
-.ipg-stack { display: flex; flex-direction: column; gap: var(--spacing-standard-control); min-width: 0; }
+.ipg-stack { display: flex; flex-direction: column; gap: var(--input-stack-gap, var(--spacing-standard-block)); min-width: 0; }
 .ipg-card { --corner-radius: var(--spacing-standard-control); box-sizing: border-box; min-width: 0; padding: var(--spacing-standard-control); background: var(--color-white); }
-.ipg-form { display: flex; flex-direction: column; gap: var(--spacing-standard-control); }
+.ipg-form { display: flex; flex-direction: column; gap: var(--input-stack-gap, var(--spacing-standard-block)); }
 .ipg-demo { max-width: 420px; }
 .ipg-stage--demo { padding-block: var(--spacing-standard-block); }
 .ipg-cq { container-type: inline-size; min-width: 0; }
